@@ -27,7 +27,7 @@ class OwnGroupCourse extends Component
     public function updateGroup()
     {
         try {
-            $this->group->updat([
+            $this->group->update([
                 'name' => $this->gName,
                 'courses' => json_encode($this->gCourses),
             ]);

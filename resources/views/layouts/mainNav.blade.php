@@ -190,6 +190,9 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('messages.profile') }}
                         </x-dropdown-link>
+                        <x-dropdown-link :href="route('user-manual')">
+                            {{ __('messages.user_manual') }}
+                        </x-dropdown-link>
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">

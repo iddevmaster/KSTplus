@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
 
     // page
     Route::get('/main', [HomeController::class, 'main'])->name('main');
+    Route::get('/user-manual', [HomeController::class, 'userManual'])->name('user-manual');
     Route::get('/home', [HomeController::class, 'home'])->name('home');
     Route::get('/course{id}/detail', [HomeController::class, 'courseDetail'])->name('course.detail');
     Route::get('/course/all', [HomeController::class, 'allCourse'])->name('course.all');

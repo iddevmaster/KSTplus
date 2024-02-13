@@ -67,6 +67,7 @@ return [
     'back_2_course' => 'Back To Course',
     'currect' => 'Correct answer',
     'incurrect' => "Your answer and it's incurrect",
+    'user_manual' => 'User manual',
 
     // Other
 

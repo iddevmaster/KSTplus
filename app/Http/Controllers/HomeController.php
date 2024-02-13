@@ -35,6 +35,11 @@ class HomeController extends Controller
         //
     }
 
+    public function userManual()
+    {
+        return view("page.user_manual");
+    }
+
     /**
      * Show the form for creating a new resource.
      */

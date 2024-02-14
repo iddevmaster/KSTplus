@@ -286,7 +286,11 @@
                     'Successed!',
                     'User has been renewed.',
                     'success'
-                    )
+                    ).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload()
+                        }
+                    });
                 }
             })
         })

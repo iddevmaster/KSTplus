@@ -487,9 +487,9 @@ class CourseController extends Controller
 
     public function updateLesson(Request $request): RedirectResponse {
         $request->validate([
-            'lessid' => ['string', 'max:255'],
+            'lessid' => ['required','string', 'max:255'],
             'topic' => ['required', 'string', 'max:5000'],
-            'desc' => ['required', 'string', 'max:10000'],
+            'desc' => ['string', 'max:10000'],
         ]);
 
         try {

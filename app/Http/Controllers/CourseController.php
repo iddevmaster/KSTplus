@@ -496,7 +496,7 @@ class CourseController extends Controller
             $lesson = Lesson::find($request->lessid);
             $lesson->update([
                 'topic' => $request->topic,
-                'desc' => $request->desc
+                'desc' => $request->desc ?? ''
             ]);
 
             Activitylog::create([

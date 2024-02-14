@@ -486,12 +486,16 @@ class CourseController extends Controller
     }
 
     public function updateLesson(Request $request): RedirectResponse {
-        // dd($request->all());
         $request->validate([
             'lessid' => ['required','string', 'max:255'],
             'topic' => ['required', 'string', 'max:5000'],
-            'desc' => ['string', 'max:10000'],
         ]);
+
+        if ($request->desc) {
+            $request->validate([
+                'desc' => ['string', 'max:10000'],
+            ]);
+        }
 
         try {
             $lesson = Lesson::find($request->lessid);

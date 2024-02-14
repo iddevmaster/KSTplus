@@ -65,6 +65,9 @@
                             {{ __('messages.dashboard') }}
                         </a>
                     @endif
+                    <a href="{{route('user-manual')}}" >
+                        {{ __('messages.user_manual') }}
+                    </a>
                 </div>
             </div>
 
@@ -190,9 +193,6 @@
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('messages.profile') }}
                         </x-dropdown-link>
-                        <x-dropdown-link :href="route('user-manual')">
-                            {{ __('messages.user_manual') }}
-                        </x-dropdown-link>
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
@@ -262,6 +262,9 @@
                     {{ __('messages.dashboard') }}
                 </x-responsive-nav-link>
             @endcanAny
+            <x-responsive-nav-link :href="route('user-manual')" :active="request()->routeIs('home')">
+                {{ __('messages.user_manual') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

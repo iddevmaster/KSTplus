@@ -646,7 +646,7 @@
                 preConfirm: () => {
                     const label = document.getElementById('labelInput').value;
                     const fileInput = document.getElementById('dropzone-file');
-                    const fileSize = fileInput ? fileInput.files[0].size : 0;
+                    const fileSize = fileInput.files[0] ? fileInput.files[0].size : 0;
 
                     // Ensure a file was selected
                     if (!label) {

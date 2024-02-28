@@ -646,6 +646,7 @@
                 preConfirm: () => {
                     const label = document.getElementById('labelInput').value;
                     const fileInput = document.getElementById('dropzone-file');
+                    const fileSize = fileInput.files[0].size;
 
                     // Ensure a file was selected
                     if (!label) {
@@ -653,6 +654,9 @@
                         return;
                     } else if (!fileInput.files || fileInput.files.length === 0) {
                         Swal.showValidationMessage("File is required!");
+                        return;
+                    } else if (fileSize > 25 * 1024 * 1024) {
+                        Swal.showValidationMessage("File size exceeds the limit (MAX 25Mb)!");
                         return;
                     } else {
                         const formData = new FormData();

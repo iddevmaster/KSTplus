@@ -653,10 +653,10 @@
                         Swal.showValidationMessage("Label is required!");
                         return;
                     } else if (!fileInput.files || fileInput.files.length === 0) {
-                        Swal.showValidationMessage("File is required!");
+                        Swal.showValidationMessage("กรุณาอัพโหลดไฟล์");
                         return;
                     } else if (fileSize > 25 * 1024 * 1024) {
-                        Swal.showValidationMessage("File size exceeds the limit (MAX 25Mb)!");
+                        Swal.showValidationMessage("ขนาดไฟล์เกินขีดจำกัด (สูงสุด 25Mb)!");
                         return;
                     } else {
                         const formData = new FormData();

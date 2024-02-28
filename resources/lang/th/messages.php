@@ -172,7 +172,7 @@ return [
     'Agency Data' => 'ข้อมูลหน่วยงาน',
     'Address' => 'ที่อยู่',
     'Contact' => 'ติดต่อ',
-    'Prefix' => 'คำนำหน้า',
+    'Prefix' => 'ตัวย่อ',
     'Personnel' => 'บุคลากร',
     'Roles & Permissions' => 'บทบาทและสิทธิ์',
     'Roles' => 'บทบาท',

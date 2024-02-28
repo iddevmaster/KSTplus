@@ -113,8 +113,8 @@
                                                     <tr>
                                                         <td>{{ $course->code }}</td>
                                                         <td class="text-nowrap" data-toggle="tooltip" data-placement="top" title="{{ $course->title }}">{{ $course->title }}</td>
-                                                        <td>{{ $course->getTeacher->name }}</td>
-                                                        <td>{{ $course->getDpm->name }}</td>
+                                                        <td>{{ optional($course->getTeacher)->name }}</td>
+                                                        <td>{{ optional($course->getDpm)->name }}</td>
                                                         <td>{{ count($course->studens ?? []) }}</td>
                                                     </tr>
                                                 @endforeach

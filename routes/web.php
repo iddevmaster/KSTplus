@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\ReqController;
+use App\Http\Controllers\SSO\SSOController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,10 +23,14 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    Auth::logout();
-    return view('auth.login');
-});
+// Route::get('/', function () {
+//     Auth::logout();
+//     return view('auth.login');
+// });
+
+Route::get("/sso/login", [SSOController::class, "getLogin"])->name('sso.login');
+Route::get("/callback", [SSOController::class, "getCallback"])->name('sso.callback');
+Route::get("/sso/connect", [SSOController::class, "connectUser"])->name('sso.connect');
 
 // Route::get('/home', function () {
 //     return view('page.home');
@@ -50,6 +55,7 @@ Route::middleware('auth')->group(function () {
 
     // page
     Route::get('/main', [HomeController::class, 'main'])->name('main');
+    Route::get('/', [HomeController::class, 'main'])->name('index');
     Route::get('/user-manual', [HomeController::class, 'userManual'])->name('user-manual');
     Route::get('/home', [HomeController::class, 'home'])->name('home');
     Route::get('/course{id}/detail', [HomeController::class, 'courseDetail'])->name('course.detail');

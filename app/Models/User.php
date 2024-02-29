@@ -3,9 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Http;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -30,6 +33,7 @@ class User extends Authenticatable
         'courses',
         'icon',
         'startlt',
+        'sso_user'
     ];
 
     public function getCoursesAttribute($value)
@@ -74,4 +78,5 @@ class User extends Authenticatable
         ])->get(config('auth.sso_host') . "/api/logmeout");
         // die($response);
     }
+
 }

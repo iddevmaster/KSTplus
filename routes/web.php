@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SSO\SSOController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ManageController;
 use App\Http\Controllers\UserController;
@@ -25,7 +26,7 @@ use Illuminate\Support\Facades\Auth;
 
 // Route::get('/', function () {
 //     Auth::logout();
-//     return view('auth.login');
+//     return redirect()->route('sso.login');
 // });
 
 Route::get("/sso/login", [SSOController::class, "getLogin"])->name('sso.login');

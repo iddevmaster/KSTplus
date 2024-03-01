@@ -16,6 +16,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -24,17 +27,87 @@
     </head>
     <body class="font-sans text-gray-900 antialiased" >
         <div class="min-h-screen flex flex-col sm:justify-center items-center bg-gray-100" style="background-image: url('{{ asset('img/bg.jpg') }}'); background-size: cover; background-position: center">
-            <div class="py-4">
-                <a href="/">
-                    <img src="/img/logo.png" alt="" >
-                </a>
-            </div>
+            <div class="flex-auto">
 
-            <div class="w-full sm:max-w-md my-6 px-6 py-4  overflow-hidden rounded-xl" style="backdrop-filter: blur(4px); box-shadow: 0px 0px 10px 0px white; border-radius: 20px; background-color:rgba(255, 255, 255, .2);">
-                {{ $slot }}
             </div>
-            <footer class="flex mt-5 w-100 justify-around w-full absolute bottom-5" >
-                <div class="flex gap-2 align-items-center">
+            <div class="flex-auto">
+                <div class="py-2 md:py-4">
+                    <a href="/">
+                        <img src="/img/logo.png" alt="" >
+                    </a>
+                </div>
+
+                <div class="w-full sm:max-w-md my-6 px-6 py-4  overflow-hidden rounded-xl" style="backdrop-filter: blur(4px); box-shadow: 0px 0px 10px 0px white; border-radius: 20px; background-color:rgba(255, 255, 255, .2);">
+                    {{ $slot }}
+                </div>
+            </div>
+            <div class="owl-carousel owl-theme w-1/2">
+                <div class="item">
+                    <a href="https://idnetwork.net/" target="_BLANK">
+                        <div style="width:300px; height:150px">
+                            <img src="/img/carouselphoto/1.jpg" alt="" >
+                        </div>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="https://www.iddriver.com/" target="_BLANK">
+                        <div style="width:300px; height:150px">
+                            <img src="/img/carouselphoto/2.jpg" alt="">
+                        </div>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="https://www.trainingzenter.com/" target="_BLANK">
+                        <div style="width:300px; height:150px">
+                            <img src="/img/carouselphoto/3.jpg" alt="">
+                        </div>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="https://iddrives.co.th/web/" target="_BLANK">
+                        <div style="width:300px; height:150px">
+                            <img src="/img/carouselphoto/4.png" alt="">
+                        </div>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="https://hrc.iddrives.co.th/" target="_BLANK">
+                        <div style="width:300px; height:150px">
+                            <img src="/img/carouselphoto/5.jpg" alt="">
+                        </div>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="https://ismart4.com/" target="_BLANK">
+                        <div style="width:300px; height:150px">
+                            <img src="/img/carouselphoto/6.png" alt="">
+                        </div>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="http://www.csr.iddrives.co.th/index.php" target="_BLANK">
+                        <div style="width:300px; height:150px">
+                            <img src="/img/carouselphoto/7.jpg" alt="">
+                        </div>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="https://safety.trainingzenter.com/index.php" target="_BLANK">
+                        <div style="width:300px; height:150px">
+                            <img src="/img/carouselphoto/8.jpg" alt="">
+                        </div>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="https://www.idklever.com/" target="_BLANK">
+                        <div style="width:300px; height:150px;">
+                            <img src="/img/carouselphoto/10.png" alt="">
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <footer class="flex flex-wrap w-100 justify-around w-full pb-2" >
+                <div class="flex flex-wrap justify-center text-center  gap-2 align-items-center">
                     <div><img src="/img/logoiddrives.png" alt="" width="50"></div>
                     <div class="flex items-center text-white text-sm"><p style="height: fit-content">บริษัท ไอดีไดรฟ์ จำกัด 200/222 หมู่2 ถนนชัยพฤกษ์ อำเภอเมืองขอนแก่น จังหวัดขอนแก่น <br> Tel : 043-228 899 www.iddrives.co.th Email : idofficer@iddrives.co.th</p></div>
                 </div>
@@ -43,5 +116,31 @@
                 </div>
             </footer>
         </div>
+        <script src="{{ asset('assets/owl.carousel.min.js') }}"></script>
+        <script>
+            $(document).ready(function() {
+                $('.owl-carousel').owlCarousel({
+                    // Customize carousel options here
+                    loop: true, // Whether to loop the carousel
+                    nav: false, // Navigation buttons (prev/next)
+                    dots: true, // Pagination dots
+                    autoplay:true,
+                    autoplayTimeout:3000,
+                    autoplayHoverPause:true,
+                    autoplaySpeed: 1000,
+                    responsive: {
+                        0: { // Breakpoint for screens smaller than or equal to 0px
+                            items: 1, // Show only 1 item
+                        },
+                        600: { // Breakpoint for screens between 600px and 959px
+                            items: 2, // Show 2 items
+                        },
+                        960: { // Breakpoint for screens 960px and above
+                            items: 3, // Show 3 items
+                        }
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

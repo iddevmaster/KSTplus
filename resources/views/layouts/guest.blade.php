@@ -43,65 +43,37 @@
             </div>
             <div class="owl-carousel owl-theme w-1/2">
                 <div class="item">
-                    <a href="https://idnetwork.net/" target="_BLANK">
-                        <div style="width:300px; height:150px">
-                            <img src="/img/carouselphoto/1.jpg" alt="" >
-                        </div>
-                    </a>
-                </div>
-                <div class="item">
                     <a href="https://www.iddriver.com/" target="_BLANK">
-                        <div style="width:300px; height:150px">
+                        <div >
                             <img src="/img/carouselphoto/2.jpg" alt="">
                         </div>
                     </a>
                 </div>
                 <div class="item">
                     <a href="https://www.trainingzenter.com/" target="_BLANK">
-                        <div style="width:300px; height:150px">
-                            <img src="/img/carouselphoto/3.jpg" alt="">
+                        <div >
+                            <img src="/img/carouselphoto/tz.jpg" alt="">
                         </div>
                     </a>
                 </div>
                 <div class="item">
                     <a href="https://iddrives.co.th/web/" target="_BLANK">
-                        <div style="width:300px; height:150px">
-                            <img src="/img/carouselphoto/4.png" alt="">
-                        </div>
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="https://hrc.iddrives.co.th/" target="_BLANK">
-                        <div style="width:300px; height:150px">
-                            <img src="/img/carouselphoto/5.jpg" alt="">
-                        </div>
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="https://ismart4.com/" target="_BLANK">
-                        <div style="width:300px; height:150px">
-                            <img src="/img/carouselphoto/6.png" alt="">
-                        </div>
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="http://www.csr.iddrives.co.th/index.php" target="_BLANK">
-                        <div style="width:300px; height:150px">
-                            <img src="/img/carouselphoto/7.jpg" alt="">
-                        </div>
-                    </a>
-                </div>
-                <div class="item">
-                    <a href="https://safety.trainingzenter.com/index.php" target="_BLANK">
-                        <div style="width:300px; height:150px">
-                            <img src="/img/carouselphoto/8.jpg" alt="">
+                        <div>
+                            <img src="/img/carouselphoto/id.jpg" alt="">
                         </div>
                     </a>
                 </div>
                 <div class="item">
                     <a href="https://www.idklever.com/" target="_BLANK">
-                        <div style="width:300px; height:150px;">
+                        <div>
                             <img src="/img/carouselphoto/10.png" alt="">
+                        </div>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="https://dronettc.com/" target="_BLANK">
+                        <div>
+                            <img src="/img/carouselphoto/drone.png" alt="">
                         </div>
                     </a>
                 </div>
@@ -125,6 +97,7 @@
                     nav: false, // Navigation buttons (prev/next)
                     dots: true, // Pagination dots
                     autoplay:true,
+                    margin: 10,
                     autoplayTimeout:3000,
                     autoplayHoverPause:true,
                     autoplaySpeed: 1000,

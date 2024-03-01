@@ -24,9 +24,9 @@
         </div>
 
         <div>
-            <x-input-label for="username" :value="__('Username')" />
-            <x-text-input id="username" name="email" type="text" class="mt-1 block w-full" :value="old('username', $user->username)" required autofocus autocomplete="username" />
-            <x-input-error class="mt-2" :messages="$errors->get('username')" />
+            {{-- <x-input-label for="username" :value="__('Username')" /> --}}
+            <x-text-input id="username" name="email" type="hidden" class="mt-1 block w-full" :value="old('username', $user->username)" required autofocus autocomplete="username" />
+            {{-- <x-input-error class="mt-2" :messages="$errors->get('username')" /> --}}
         </div>
 
         <div class="flex items-center gap-4">

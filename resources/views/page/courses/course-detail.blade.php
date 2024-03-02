@@ -268,8 +268,8 @@
                 <div class="card p-4">
                     <p class="text-center fw-bold fs-5 mb-4">{{ __('messages.feature') }}</p>
                     <p><b>{{ __('messages.cid') }}: </b> {{ $course->code }}</p>
-                    <p><b>{{ __('messages.Lecturer') }}: </b> {{ $course->getTeacher->name }}</p>
-                    <p><b>{{ __('messages.dpm') }}: </b> {{ $course->getDpm->name }}</p>
+                    <p><b>{{ __('messages.Lecturer') }}: </b> {{ optional($course->getTeacher)->name }}</p>
+                    <p><b>{{ __('messages.dpm') }}: </b> {{ optional($course->getDpm)->name }}</p>
                     <p><b>{{ __('messages.lesson') }}: </b> {{ $lessons->count() }}</p>
                     @php
                         $updatetime = new DateTime($course->updated_at);

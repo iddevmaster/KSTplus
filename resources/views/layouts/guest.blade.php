@@ -80,7 +80,7 @@
                 <div class="item">
                     <a href="https://sureintime.com/" target="_BLANK">
                         <div>
-                            <img src="/img/carouselphoto/logoins.png" style="max-height: 150px;" alt="">
+                            <img src="/img/carouselphoto/logoins.png" style="max-height: 150px; object-fit:contain;" alt="">
                         </div>
                     </a>
                 </div>

@@ -77,6 +77,13 @@
                         </div>
                     </a>
                 </div>
+                <div class="item">
+                    <a href="https://sureintime.com/" target="_BLANK">
+                        <div>
+                            <img src="/img/carouselphoto/logoins.png" alt="">
+                        </div>
+                    </a>
+                </div>
             </div>
             <footer class="flex flex-wrap w-100 justify-around w-full pb-2" >
                 <div class="flex flex-wrap justify-center text-center  gap-2 align-items-center">

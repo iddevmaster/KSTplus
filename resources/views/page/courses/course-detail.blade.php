@@ -796,7 +796,7 @@
                                         {{$test->score}}/{{$test->totalScore}}
                                     </td>
                                     <td class="px-3 py-2">
-                                        @if ($test->score > ($test->totalScore * $test->getQuiz->pass_score / 100))
+                                        @if ($test->score >= ($test->totalScore * $test->getQuiz->pass_score / 100))
                                             <p class="text-green-500">PASS</p>
                                         @else
                                             <p class="text-red-500">FAIL</p>

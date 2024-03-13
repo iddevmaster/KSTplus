@@ -684,7 +684,7 @@
                     extend: 'print',
                     autoPrint: true,
                     title: '{{auth()->user()->agnName->name ?? "Knowledge Service Training"}}',
-                    messageTop: 'All Course',
+                    messageTop: 'รายงานหลักสูตร',
                     messageBottom: 'Printed on ' + window.location.href + ' by {{auth()->user()->name}} at ' + dateString,
                     customize: function (doc) {
                         // Prepend an image to the title (doc.title is empty so we prepend to doc.content[1].table)
@@ -753,7 +753,7 @@
                     extend: 'print',
                     autoPrint: true,
                     title: '{{auth()->user()->agnName->name ?? "Knowledge Service Training"}}',
-                    messageTop: 'All Test ',
+                    messageTop: 'รายงานการทำแบบทดสอบ',
                     messageBottom: 'Printed on ' + window.location.href + ' by {{auth()->user()->name}} at ' + dateString,
                     customize: function (doc) {
                         // Prepend an image to the title (doc.title is empty so we prepend to doc.content[1].table)
@@ -822,7 +822,7 @@
                     extend: 'print',
                     autoPrint: true,
                     title: '{{auth()->user()->agnName->name ?? "Knowledge Service Training"}}',
-                    messageTop: 'Activity Log',
+                    messageTop: 'รายงานประวัติการเข้าใช้ระบบ',
                     messageBottom: 'Printed on ' + window.location.href + ' by {{auth()->user()->name}} at ' + dateString,
                     customize: function (doc) {
                         // Prepend an image to the title (doc.title is empty so we prepend to doc.content[1].table)

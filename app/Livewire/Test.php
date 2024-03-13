@@ -31,9 +31,9 @@ class Test extends Component
         $this->startTest = Carbon::now()->format('Y-m-d H:i:s');
         $this->quiz = quiz::find($this->testId);
         $all_ques = Question::where('quiz', $this->testId)->count();
-        if ($this->quiz->shuffle_quest && $ques_num === $all_ques) {
+        if ($this->quiz->shuffle_quest && $ques_num == $all_ques) {
             $this->questions = Question::where('quiz', $this->testId)->get()->shuffle();  // เรียงจากน้อยไปมาก
-        } elseif (!$this->quiz->shuffle_quest && $ques_num === $all_ques) {
+        } elseif (!$this->quiz->shuffle_quest && $ques_num == $all_ques) {
             $this->questions = Question::where('quiz', $this->testId)->orderBy('id', 'asc')->get();  // เรียงจากน้อยไปมาก
         } elseif ($ques_num < $all_ques) {
             $this->questions = Question::where('quiz', $this->testId)->inRandomOrder()->limit($ques_num)->get();

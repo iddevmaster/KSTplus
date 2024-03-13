@@ -110,6 +110,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/quiz/question/update/{id}', [QuizController::class, 'updateQuestion'])->name('quiz.quest.update');
     Route::get('/quiz/question/delete/{id}', [QuizController::class, 'delQuestion'])->name('quiz.quest.del');
     Route::get('/quiz/delete/{id}', [QuizController::class, 'destroy'])->name('quiz.del');
+    Route::get('/quiz/copy/{id}', [QuizController::class, 'copyQuiz'])->name('quiz.copy');
     Route::get('/quiz/record/{qid}', [QuizController::class, 'testRecord'])->name('quiz.record');
 
     // request
@@ -121,7 +122,7 @@ Route::middleware('auth')->group(function () {
 
 
     // Take Exam
-    Route::get('/test/start/{cid}/{qzid}', [TestController::class, 'index'])->name('test.start');
+    Route::get('/test/start/{cid}/{qzid}/{ques_num}', [TestController::class, 'index'])->name('test.start');
     Route::get('/test/summary', [TestController::class, 'testSummary'])->name('test.summary');
     Route::get('/test/finish', [TestController::class, 'finishTest'])->name('test.finish');
 

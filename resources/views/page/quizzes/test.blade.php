@@ -5,7 +5,7 @@
                 <p class="fs-2 fw-bold">Quizzes</p>
             </div>
 
-            @livewire('test', ['testId' => $qzid, 'courseId' => $cid])
+            @livewire('test', ['testId' => $qzid, 'courseId' => $cid, 'ques_num' => $ques_num])
 
         </div>
     </div>

@@ -12,7 +12,7 @@ use App\Models\Activitylog;
 
 class TestController extends Controller
 {
-    public function index(Request $request, $cid , $qzid) {
+    public function index(Request $request, $cid , $qzid, $ques_num) {
 
         Log::channel('activity')->info('User '. $request->user()->name .' start test',
         [
@@ -20,7 +20,7 @@ class TestController extends Controller
             'course' => $cid,
             'quiz' => $qzid
         ]);
-        return view("page.quizzes.test", compact('qzid', 'cid'));
+        return view("page.quizzes.test", compact('qzid', 'cid', 'ques_num'));
     }
 
     public function testSummary(Request $request) {

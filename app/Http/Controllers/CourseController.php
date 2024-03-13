@@ -576,6 +576,7 @@ class CourseController extends Controller
                     'label' => ['required', 'string', 'max:500'],
                     'lessId' => 'required',
                     'addType' => 'required',
+                    'numQuest' => ['integer', 'max:500'],
                 ]);
                 $subless = [
                     'id'=> date('dmYHi'),
@@ -583,6 +584,7 @@ class CourseController extends Controller
                     'label'=> $request->label,
                     'content'=> $request->content,
                     'date'=> date('Y-m-d'),
+                    'num_quest' => $request->numQuest,
                 ];
                 $lesson = lesson::find($request->lessId);
                 if (is_null($lesson->sub_lessons)) {

@@ -24,16 +24,19 @@ class Test extends Component
 
 
 
-    public function mount($testId, $courseId)
+    public function mount($testId, $courseId, $ques_num)
     {
         $this->testId = $testId;
         $this->courseId = $courseId;
         $this->startTest = Carbon::now()->format('Y-m-d H:i:s');
         $this->quiz = quiz::find($this->testId);
-        if ($this->quiz->shuffle_quest) {
+        $all_ques = Question::where('quiz', $this->testId)->count();
+        if ($this->quiz->shuffle_quest && $ques_num === $all_ques) {
             $this->questions = Question::where('quiz', $this->testId)->get()->shuffle();  // เรียงจากน้อยไปมาก
-        } else {
+        } elseif (!$this->quiz->shuffle_quest && $ques_num === $all_ques) {
             $this->questions = Question::where('quiz', $this->testId)->orderBy('id', 'asc')->get();  // เรียงจากน้อยไปมาก
+        } elseif ($ques_num < $all_ques) {
+            $this->questions = Question::where('quiz', $this->testId)->inRandomOrder()->limit($ques_num)->get();
         }
         session()->put('shuffled_questions', $this->questions);
         // dd($this->questions);

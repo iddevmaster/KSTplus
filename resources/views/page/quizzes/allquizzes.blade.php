@@ -244,6 +244,12 @@
                                             {{ __('messages.record') }}
                                             <div class="tooltip-arrow" data-popper-arrow></div>
                                         </div>
+
+                                        <a href="#" data-quiz-id="{{$quiz->id}}" data-tooltip-target="tooltip-copy" class="copyQuizBtn text-lg text-yellow-500  hover:text-yellow-700 hover:underline"><i class="bi bi-copy"></i></a>
+                                        <div id="tooltip-copy" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                            {{ __('copy') }}
+                                            <div class="tooltip-arrow" data-popper-arrow></div>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -324,6 +330,62 @@
                                 Swal.fire(
                                     'Sorry!',
                                     'Quiz has not deleted.',
+                                    'error'
+                                )
+                                console.log("error: ",error);
+                            }
+                        });
+                    }
+                })
+
+            });
+
+            $('.copyQuizBtn').click(function() {
+                // Get the notification ID from the data attribute
+                const copyQuizId = $(this).data('quiz-id');
+                Swal.fire({
+                    title: `{{ __('messages.rusure') }}?`,
+                    text: "{!! __('messages.rusure_sub') !!}!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, copy it!',
+                    showLoaderOnConfirm: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/quiz/copy/' + copyQuizId, // You need to define this route in your web.php
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function(response) {
+                                // You can add some code here to handle a successful response
+                                if (response.success) {
+                                    console.log("success: ",response.success);
+                                    Swal.fire(
+                                        'Successed!',
+                                        'Quiz has been copied.',
+                                        'success'
+                                    ).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location.reload()
+                                        }
+                                    });
+                                } else {
+                                    Swal.fire(
+                                        'Sorry!',
+                                        'Quiz has not copied.',
+                                        'error'
+                                    );
+                                    console.log("error: ",response.error);
+                                };
+                                // window.location.reload()
+                            },
+                            error: function(error) {
+                                // You can add some error handling here
+                                Swal.fire(
+                                    'Sorry!',
+                                    'Quiz has not copied.',
                                     'error'
                                 )
                                 console.log("error: ",error);

@@ -169,6 +169,42 @@ class QuizController extends Controller
         }
     }
 
+    public function copyQuiz(Request $request, $id) {
+        $quiz = quiz::find($id);
+        $questions = question::where('quiz', $id)->get();
+        if ($quiz) {
+            $copyQuiz = $quiz->replicate([
+                'for_courses',
+                'deleted_at'
+            ])->fill([
+                'title' => $quiz->title . '-copy'
+            ]);
+            $copyQuiz->save();
+
+            if ($questions) {
+                foreach ($questions as $index => $question) {
+                    $copyQues = $question->replicate()->fill([
+                        'quiz' => $copyQuiz->id
+                    ]);
+                    $copyQues->save();
+                }
+            }
+        }
+
+        Activitylog::create([
+            'user' => auth()->id(),
+            'module' => 'Quiz',
+            'content' => $quiz->id,
+            'note' => 'copy',
+        ]);
+        Log::channel('activity')->info('User '. $request->user()->name .' copy quiz',
+        [
+            'user' => $request->user(),
+            'quiz' => $quiz,
+        ]);
+        return response()->json(['success' => $copyQuiz]);
+    }
+
     public function storeQuestion(Request $request, $id) {
         try {
             $question = new question;

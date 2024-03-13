@@ -669,6 +669,7 @@
                         + currentDate.getHours() + ":"
                         + currentDate.getMinutes() + ":"
                         + currentDate.getSeconds();
+        var url = new URL(window.location.href);
 
         $('#allcourse-datatable').DataTable({
             paging: true,       // Enables pagination
@@ -685,7 +686,7 @@
                     autoPrint: true,
                     title: '{{auth()->user()->agnName->name ?? "Knowledge Service Training"}}',
                     messageTop: 'รายงานหลักสูตร',
-                    messageBottom: 'Printed on ' + window.location.href + ' by {{auth()->user()->name}} at ' + dateString,
+                    messageBottom: 'Printed on ' + url.origin + ' by {{auth()->user()->name}} at ' + dateString,
                     customize: function (doc) {
                         // Prepend an image to the title (doc.title is empty so we prepend to doc.content[1].table)
                         var imgContainer = $('<div/>').css({
@@ -738,7 +739,7 @@
                         + currentDate.getHours() + ":"
                         + currentDate.getMinutes() + ":"
                         + currentDate.getSeconds();
-
+        var url = new URL(window.location.href);
         $('#test-datatable').DataTable({
             paging: true,       // Enables pagination
             searching: true,    // Enables the search box
@@ -754,7 +755,7 @@
                     autoPrint: true,
                     title: '{{auth()->user()->agnName->name ?? "Knowledge Service Training"}}',
                     messageTop: 'รายงานการทำแบบทดสอบ',
-                    messageBottom: 'Printed on ' + window.location.href + ' by {{auth()->user()->name}} at ' + dateString,
+                    messageBottom: 'Printed on ' + url.origin + ' by {{auth()->user()->name}} at ' + dateString,
                     customize: function (doc) {
                         // Prepend an image to the title (doc.title is empty so we prepend to doc.content[1].table)
                         var imgContainer = $('<div/>').css({
@@ -807,6 +808,7 @@
                         + currentDate.getHours() + ":"
                         + currentDate.getMinutes() + ":"
                         + currentDate.getSeconds();
+        var url = new URL(window.location.href);
 
         $('#log-table').DataTable({
             paging: true,       // Enables pagination
@@ -823,7 +825,7 @@
                     autoPrint: true,
                     title: '{{auth()->user()->agnName->name ?? "Knowledge Service Training"}}',
                     messageTop: 'รายงานประวัติการเข้าใช้ระบบ',
-                    messageBottom: 'Printed on ' + window.location.href + ' by {{auth()->user()->name}} at ' + dateString,
+                    messageBottom: 'Printed on ' + url.origin + ' by {{auth()->user()->name}} at ' + dateString,
                     customize: function (doc) {
                         // Prepend an image to the title (doc.title is empty so we prepend to doc.content[1].table)
                         var imgContainer = $('<div/>').css({

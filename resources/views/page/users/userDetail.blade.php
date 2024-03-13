@@ -213,6 +213,7 @@
                         + currentDate.getHours() + ":"
                         + currentDate.getMinutes() + ":"
                         + currentDate.getSeconds();
+        var url = new URL(window.location.href);
 
         $('#test-datatable').DataTable({
             paging: true,       // Enables pagination
@@ -231,8 +232,8 @@
                     extend: 'print',
                     autoPrint: true,
                     title: '{{auth()->user()->agnName->name ?? "Knowledge Service Training"}}',
-                    messageTop: '{{$user->name}} Test History',
-                    messageBottom: 'Printed on ' + window.location.href + ' by {{auth()->user()->name}} at ' + dateString,
+                    messageTop: 'รายงานการทดสอบของ {{$user->name}}',
+                    messageBottom: 'Printed on ' + url.origin + ' by {{auth()->user()->name}} at ' + dateString,
                     customize: function (doc) {
                         // Prepend an image to the title (doc.title is empty so we prepend to doc.content[1].table)
                         var imgContainer = $('<div/>').css({
@@ -285,6 +286,7 @@
                         + currentDate.getHours() + ":"
                         + currentDate.getMinutes() + ":"
                         + currentDate.getSeconds();
+        var url = new URL(window.location.href);
 
         $('#course-datatable').DataTable({
             paging: true,       // Enables pagination
@@ -303,8 +305,8 @@
                     extend: 'print',
                     autoPrint: true,
                     title: '{{auth()->user()->agnName->name ?? "Knowledge Service Training"}}',
-                    messageTop: '{{$user->name}} enrolled Course',
-                    messageBottom: 'Printed on ' + window.location.href + ' by {{auth()->user()->name}} at ' + dateString,
+                    messageTop: 'รายงานการเรียนของ {{$user->name}}',
+                    messageBottom: 'Printed on ' + url.origin + ' by {{auth()->user()->name}} at ' + dateString,
                     customize: function (doc) {
                         // Prepend an image to the title (doc.title is empty so we prepend to doc.content[1].table)
                         var imgContainer = $('<div/>').css({
@@ -357,6 +359,7 @@
                         + currentDate.getHours() + ":"
                         + currentDate.getMinutes() + ":"
                         + currentDate.getSeconds();
+        var url = new URL(window.location.href);
 
         $('#owncourse-datatable').DataTable({
             paging: true,       // Enables pagination
@@ -375,8 +378,8 @@
                     extend: 'print',
                     autoPrint: true,
                     title: '{{auth()->user()->agnName->name ?? "Knowledge Service Training"}}',
-                    messageTop: '{{$user->name}} Own Course',
-                    messageBottom: 'Printed on ' + window.location.href + ' by {{auth()->user()->name}} at ' + dateString,
+                    messageTop: 'รายงานหลักสูตรของ {{$user->name}}',
+                    messageBottom: 'Printed on ' + url.origin + ' by {{auth()->user()->name}} at ' + dateString,
                     customize: function (doc) {
                         // Prepend an image to the title (doc.title is empty so we prepend to doc.content[1].table)
                         var imgContainer = $('<div/>').css({

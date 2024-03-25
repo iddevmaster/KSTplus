@@ -39,6 +39,9 @@ Route::get('/', function () {
 // });
 
 Route::middleware('auth')->group(function () {
+    Route::get('/phpinfo', function () {
+        phpinfo();
+    });
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/icon', [ProfileController::class, 'updateIcon'])->name('icon.update');

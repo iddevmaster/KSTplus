@@ -650,6 +650,7 @@
                     const label = document.getElementById('labelInput').value;
                     const fileInput = document.getElementById('dropzone-file');
                     const fileSize = fileInput.files[0] ? fileInput.files[0].size : 0;
+                    const fileName = fileInput.files[0] ? fileInput.files[0].name : '';
 
                     // Ensure a file was selected
                     if (!label) {
@@ -662,27 +663,41 @@
                         Swal.showValidationMessage("ขนาดไฟล์เกินขีดจำกัด (สูงสุด 120MB)!");
                         return;
                     } else {
-                        const formData = new FormData();
-                        formData.append('label', label);
-                        formData.append('content', fileInput.files[0]);
-                        formData.append('lessId', lessId);
-                        formData.append('addType', addType);
+                        // Display file name and size
+                        Swal.update({
+                            title: 'กำลังอัพโหลดไฟล์',
+                            html: `<b>${fileName}</b><br>ขนาด: ${(fileSize / (1024 * 1024)).toFixed(2)} MB`,
+                        });
 
-                        // Add your CSRF token
-                        formData.append('_token', '{{ csrf_token() }}');
+                        // Delay the fetch request
+                        return new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                                const formData = new FormData();
+                                formData.append('label', label);
+                                formData.append('content', fileInput.files[0]);
+                                formData.append('lessId', lessId);
+                                formData.append('addType', addType);
 
-                        return fetch('/lesson/sublesson/add', {
-                            method: 'POST',
-                            body: formData // Send formData without setting Content-Type header
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error(response.statusText)
-                            }
-                            return response.json()
-                        })
-                        .catch(error => {
-                            Swal.showValidationMessage(`Request failed: ${error}`)
+                                // Add your CSRF token
+                                formData.append('_token', '{{ csrf_token() }}');
+
+                                fetch('/lesson/sublesson/add', {
+                                    method: 'POST',
+                                    body: formData // Send formData without setting Content-Type header
+                                })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error(response.statusText)
+                                    }
+                                    return response.json()
+                                })
+                                .then(data => {
+                                    resolve(data); // Resolve the promise with fetched data
+                                })
+                                .catch(error => {
+                                    reject(`Request failed: ${error}`); // Reject the promise with error message
+                                });
+                            }, 4000); // Delay for 4 seconds (4000 milliseconds)
                         });
                     }
                 },

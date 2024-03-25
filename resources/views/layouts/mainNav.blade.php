@@ -234,11 +234,11 @@
             <x-responsive-nav-link :href="route('course.all')" :active="request()->routeIs('home')">
                 {{ __('messages.all_course') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('course.all')" :active="request()->routeIs('home')">
+            <x-responsive-nav-link :href="route('classroom')" :active="request()->routeIs('home')">
                 {{ __('messages.classroom') }}
             </x-responsive-nav-link>
             @can('course')
-                <x-responsive-nav-link :href="route('course.all')" :active="request()->routeIs('home')">
+                <x-responsive-nav-link :href="route('ownCourse')" :active="request()->routeIs('home')">
                     {{ __('messages.own_course') }}
                 </x-responsive-nav-link>
             @endcan

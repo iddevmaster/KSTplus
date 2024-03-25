@@ -528,7 +528,7 @@ class CourseController extends Controller
             if ($request->addType == "file") {
                 $request->validate([
                     'label' => 'required|string|max:255',
-                    'content' => 'required|file|mimes:jpeg,png,pdf,svg,doc,docx,xls,xlsx,ppt,pptx,txt,mp4,zip,rar|max:128000', // 25MB max size, adjust as needed
+                    'content' => 'required|file|mimes:jpeg,png,pdf,svg,doc,docx,xls,xlsx,ppt,pptx,txt,mp4,zip,rar|max:262144', // 120MB max size, adjust as needed
                     'lessId' => 'required',
                     'addType' => 'required',
                 ]);

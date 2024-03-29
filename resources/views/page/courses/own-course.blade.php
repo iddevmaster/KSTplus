@@ -220,9 +220,7 @@
             },
             allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
-            if (result.isConfirmed) {
-                console.log(result.value);
-            }
+            window.location.reload()
         });
 
     }
@@ -347,11 +345,11 @@
 
                     <p class="mb-3">สิทธิ์การเข้าถึง</p>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="allPer" value="option1" ${eall ? 'checked' : ''}>
+                        <input class="form-check-input" type="checkbox" id="allPer" value="option1" ${eall === 'true' ? 'checked' : ''}>
                         <label class="form-check-label" for="allPer">หลักสูตรสาธารณะ</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="dpmPer" value="option2" ${edpm ? 'checked' : ''}>
+                        <input class="form-check-input" type="checkbox" id="dpmPer" value="option2" ${edpm === 'true' ? 'checked' : ''}>
                         <label class="form-check-label" for="dpmPer">หลักสูตรเฉพาะ</label>
                     </div>
                     <div class="flex items-center justify-center w-full mt-2">
@@ -419,7 +417,9 @@
                     'Success!',
                     'Your change has been saved.',
                     'success'
-                    )
+                    ).then((res) => {
+                        window.location.reload()
+                    })
                 }
             });
         });

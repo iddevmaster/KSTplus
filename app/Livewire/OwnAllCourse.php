@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\course;
+use Auth;
 
 class OwnAllCourse extends Component
 {
@@ -11,7 +12,11 @@ class OwnAllCourse extends Component
 
     public function mount()
     {
-        $this->courses = course::where("teacher", auth()->id())->get();
+        if (Auth::user()->hasRole('admin')) {
+            $this->courses = course::orderBy('id', 'desc')->get();
+        } else {
+            $this->courses = course::where("teacher", Auth::user()->id())->get();
+        }
     }
 
     public function render()

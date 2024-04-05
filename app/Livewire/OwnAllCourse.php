@@ -15,7 +15,7 @@ class OwnAllCourse extends Component
         if (Auth::user()->hasRole('admin')) {
             $this->courses = course::orderBy('id', 'desc')->get();
         } else {
-            $this->courses = course::where("teacher", Auth::user()->id())->get();
+            $this->courses = course::where("teacher", Auth::user()->id)->get();
         }
     }
 

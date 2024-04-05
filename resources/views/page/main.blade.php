@@ -11,7 +11,7 @@
                 $alerts = App\Models\user_request::where('alert', 'LIKE', '%"' . auth()->user()->id . '"%')->where('target', auth()->user()->id)->where('type', 'course')->where('status', '1')->get();
             @endphp
 
-            @if (count($alerts) > 0 || true)
+            @if (count($alerts) > 0 )
                 <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 flex items-center justify-center">
                     <!-- Modal overlay with gray background -->
                     <div class="fixed inset-0 bg-gray-800 opacity-50"></div>

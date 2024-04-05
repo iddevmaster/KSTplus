@@ -11,7 +11,7 @@
                 $alerts = App\Models\user_request::where('alert', 'LIKE', '%"' . auth()->user()->id . '"%')->where('target', auth()->user()->id)->where('type', 'course')->where('status', '1')->get();
             @endphp
 
-            @if (count($alerts) > 0)
+            @if (count($alerts) > 0 || true)
                 <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 flex items-center justify-center">
                     <!-- Modal overlay with gray background -->
                     <div class="fixed inset-0 bg-gray-800 opacity-50"></div>
@@ -24,17 +24,19 @@
                             </h3>
                         </div>
                         <!-- Modal body -->
-                        <div class="p-4 md:p-5 space-y-4">
-                            @foreach ($alerts as $index => $alert)
-                                @php
-                                    $courses = App\Models\course::whereIn('id', json_decode($alert->content))->pluck('code', 'title');
-                                @endphp
-                                @foreach ($courses as $title => $code)
-                                    <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50" role="alert">
-                                        <span class="font-medium">{{ $index + 1 }}) {{ $code }}</span> :: {{ $title }}
-                                    </div>
+                        <div class="p-4">
+                            <div class="course-container">
+                                @foreach ($alerts as $index => $alert)
+                                    @php
+                                        $courses = App\Models\course::whereIn('id', json_decode($alert->content))->pluck('code', 'title');
+                                    @endphp
+                                    @foreach ($courses as $title => $code)
+                                        <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50" role="alert">
+                                            <span class="font-medium">{{ $index + 1 }}) {{ $code }}</span> :: {{ $title }}
+                                        </div>
+                                    @endforeach
                                 @endforeach
-                            @endforeach
+                            </div>
                         </div>
                         <!-- Modal footer -->
                         <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
@@ -204,5 +206,24 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
+}
+.course-container {
+    max-height: 700px;
+    overflow-y: scroll;
+}
+@media screen and (max-height: 1200px) {
+    .course-container {
+        max-height: 500px;
+    }
+}
+@media screen and (max-height: 800px) {
+    .course-container {
+        max-height: 300px;
+    }
+}
+@media screen and (max-height: 500px) {
+    .course-container {
+        max-height: 150px;
+    }
 }
 </style>

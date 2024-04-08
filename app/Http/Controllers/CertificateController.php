@@ -67,13 +67,12 @@ class CertificateController extends Controller
                             "test_date" => $test->start
                         ];
                     }
-                    if ($test_data) {
-                        $course_data[] = [
-                            "course_code" => $course->code,
-                            "course_name" => $course->title,
-                            "test_history" => $test_data
-                        ];
-                    }
+
+                    $course_data[] = [
+                        "course_code" => $course->code,
+                        "course_name" => $course->title,
+                        "test_history" => $test_data
+                    ];
                 }
                 return response()->json(['user' => $user_data, 'course_test' => $course_data]);
             }

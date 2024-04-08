@@ -74,7 +74,7 @@ class CertificateController extends Controller
                         "test_history" => $test_data
                     ];
                 }
-                return response()->json(['user' => $user_data, 'course_test' => $course_data]);
+                return response()->json(['user' => $user_data, 'courses' => $course_data]);
             }
 
         } catch (\Throwable $th) {

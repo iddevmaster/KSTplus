@@ -572,12 +572,22 @@
                     const label = document.getElementById('swal-input1').value;
                     const content = document.getElementById('selQuiz').value;
                     const numOfQuest = document.getElementById('numofques').value;
+                    const quizzes = @json($quizzes);
+                    let max_ques = 0;
+                    quizzes.forEach(quiz => {
+                        if (quiz.id == content) {
+                            max_ques = quiz.ques_num;
+                        }
+                    })
 
                     if (!label) {
                         Swal.showValidationMessage("Label is required!");
                         return;
                     } else if (content == 'e') {
                         Swal.showValidationMessage("Please select quiz!");
+                        return;
+                    } else if (numOfQuest > max_ques || numOfQuest < 0) {
+                        Swal.showValidationMessage("Number of questions must between 0 to " + max_ques);
                         return;
                     } else {
                         return fetch('/lesson/sublesson/add', {

@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/request/all', [HomeController::class, 'requestAll'])->name('request.all');
     Route::get('/course/own', [HomeController::class, 'ownCourse'])->name('ownCourse');
     Route::get('/course/classroom', [HomeController::class, 'classroom'])->name('classroom');
+    Route::get('/course/enrolled', [HomeController::class, 'courseEnrolled'])->name('courses-enrolled');
     Route::get('/manage', [ManageController::class, 'index'])->name('manage');
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 
@@ -97,6 +98,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/course/lesson/update', [CourseController::class,'updateLesson'])->name('lesson.update');
     Route::post('/lesson/sublesson/add', [CourseController::class,'subLessAdd']);
     Route::post('/lesson/sublesson/delete', [CourseController::class,'subLessDel']);
+    Route::get('/courses/search/enrolled', [CourseController::class, 'searchEn'])->name('courses.search.enrolled');
     Route::get('/courses/search/dpm', [CourseController::class, 'searchDpm'])->name('courses.search.dpm');
     Route::get('/courses/search/all', [CourseController::class, 'searchAll'])->name('courses.search.all');
     Route::get('/course/group/delete/{gid}', [CourseController::class, 'delGroup']);

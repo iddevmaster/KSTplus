@@ -43,6 +43,9 @@
                             <x-dropdown-link :href="route('classroom')">
                                 {{ __('messages.classroom') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('courses-enrolled')">
+                                {{ __('messages.cenrolled') }}
+                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                     @can('quiz')
@@ -242,6 +245,9 @@
                     {{ __('messages.own_course') }}
                 </x-responsive-nav-link>
             @endcan
+            <x-responsive-nav-link :href="route('courses-enrolled')" :active="request()->routeIs('home')">
+                {{ __('messages.cenrolled') }}
+            </x-responsive-nav-link>
             @can('quiz')
                 <x-responsive-nav-link :href="route('quiz')" :active="request()->routeIs('home')">
                     {{ __('messages.quiz') }}

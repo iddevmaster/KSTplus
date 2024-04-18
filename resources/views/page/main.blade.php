@@ -46,6 +46,48 @@
                 </div>
             @endif
 
+            {{-- enrolled course carousel --}}
+            @if (count($mycourses ?? []) > 0)
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4 mb-5">
+                    <div class="mb-3 flex justify-between">
+                        <p class="text-md sm:text-xl fw-bold">{{ __('messages.cenrolled') }}</p>
+                        <a href="{{route('courses-enrolled')}}" class="btn btn-sm text-xs sm:text-md btn-primary">{{ __('messages.seemore') }} <i class="bi bi-chevron-double-right"></i></a>
+                    </div>
+                    <div class="owl-carousel">
+                        @foreach ($mycourses as $course)
+                            @php
+                                $prog_finish = App\Models\progress::where('user_id', auth()->user()->id)
+                                    ->where('course_id', $course->id)
+                                    ->count();
+                                $less_all = App\Models\lesson::where('course', $course->id)->count();
+                                if ($less_all != 0) {
+                                    $prog_avg = ($prog_finish * 100) / $less_all;
+                                } else {
+                                    $prog_avg = 0;
+                                }
+                            @endphp
+                            <div class="item">
+                                <div class="card w-100" style="height: 200px">
+                                    <a href="{{ route('course.detail', ['id' => $course->id]) }}" class="hoverbg flex justify-center items-center"><p>{{ __('messages.view_course') }}</p></a>
+                                    <div class="card-header" style="background-image: url('{{ $course->img ? '/uploads/course_imgs/'.$course->img : '/img/logo.png' }}')">
+                                        {{-- course Img --}}
+                                        <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded ">ฝ่าย: {{ optional($course->getDpm)->name }}</span>
+                                    </div>
+                                    <div class="card-body text-white" style="border-radius: 0px 0px 5px 5px">
+                                        <h5 class="card-title fw-bold mb-2">{{ Str::limit($course->title, 30) }}</h5>
+                                        <p class="card-text text-gray-200 text-sm">{{ Str::limit($course->description, 35) }}</p>
+                                        <div class="progress mt-2" style="height: 10px" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                            <div class="progress-bar" style="width: {{ $prog_avg }}%; font-size: 10px">{{ $prog_avg }}%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
+
             {{-- all course carousel --}}
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4 mb-5">
                 <div class="mb-3 flex justify-between">

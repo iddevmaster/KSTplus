@@ -96,6 +96,7 @@ return [
     'choose_course' => 'Choose course',
     'enroll' => 'Enroll',
     'enrolled' => 'Enrolled',
+    'cenrolled' => 'Courses Enrolled',
     'own' => 'Own',
     'desc' => 'Description',
     'add_section' => 'Add Section',

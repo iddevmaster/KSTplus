@@ -1,9 +1,9 @@
 <x-app-layout>
     <div class="py-12">
         <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
-            <div class="mb-3 px-4 flex justify-between items-center">
+            <div class="mb-3 px-4 flex flex-wrap justify-between items-center">
                 <p class="fs-2 fw-bold">{{ __('messages.classroom') }}</p>
-                <div class="basis-1/4">
+                <div class="basis-full sm:basis-1/2 lg:basis-1/4">
                     <div class="relative w-full">
                         <input type="search" id="search-courses" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="{{ __('messages.search') }}">
                         <button type="submit" class="absolute top-0 end-0 p-2.5 h-full text-sm font-medium text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
@@ -57,19 +57,31 @@
     // Run the function on initial page load
     applyCardStyles();
 
-    $(document).ready(function() {
-        $('#search-courses').on('keyup', function() {
+    $(document).ready(async function() {
+        $('#search-courses').on('keyup', async function() {
             var value = $(this).val();
 
-            $.ajax({
-                type: "GET",
-                url: "{{ route('courses.search.dpm') }}",
-                data: {'search': value},
-                success: function(data) {
-                    $('#course-results').html(data);
-                    applyCardStyles();
-                }
-            });
+            // Show loading indicator
+            $('#course-results').html('<div class="d-flex justify-content-center"><div class="spinner-border" style="width: 3rem; height: 3rem;" role="status"><span class="visually-hidden">Loading...</span></div></div>');
+
+            try {
+                const response = await $.ajax({
+                    type: "GET",
+                    url: "{{ route('courses.search.dpm') }}",
+                    data: {'search': (value ? value : '!all!')},
+                });
+
+                // Hide loading indicator
+                $('#course-results').empty(); // Clear loading message
+
+                $('#course-results').html(response);
+                applyCardStyles();
+            } catch (error) {
+                // Handle errors here (optional)
+                console.error("Error fetching courses:", error);
+                // Hide loading indicator
+                $('#course-results').empty(); // Clear loading message
+            }
         });
     });
 </script>

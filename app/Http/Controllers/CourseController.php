@@ -62,34 +62,74 @@ class CourseController extends Controller
         }
     }
 
+    public function searchEn(Request $request)
+    {
+        $search = $request->get('search');
+
+        if ($search !== '!all!') {
+            // search in title
+            $courses1 = course::where("studens", 'LIKE' , '%"'.$request->user()->id.'"%')
+            // Add your search condition here before paginate
+            ->when($search, function ($query) use ($search) {
+                return $query->where('title', 'like', '%'.$search.'%');
+            });
+
+            // search in course code
+            $courses2 = course::where("studens", 'LIKE' , '%"'.$request->user()->id.'"%')
+                    // Add your search condition here before paginate
+                    ->when($search, function ($query) use ($search) {
+                        return $query->where('code', 'like', '%'.$search.'%');
+                    })->union($courses1);
+
+            // query
+            $courses = $courses2->paginate(12);
+        } else {
+            $courses = course::where("studens", 'LIKE' , '%"'.$request->user()->id.'"%')->paginate(12);
+        }
+
+        Activitylog::create([
+            'user' => auth()->id(),
+            'module' => 'search',
+            'content' => $search,
+            'note' => 'dpm',
+        ]);
+        Log::channel('activity')->info('User '. $request->user()->name .' search dpm',
+            [
+                'user_id' => auth()->id(),
+                'content' => $search,
+            ]);
+        return view('partials.courses', compact('courses'));
+    }
     public function searchDpm(Request $request)
     {
         $search = $request->get('search');
 
-        // search in title
-        $courses1 = course::where('permission->dpm', "true")
-                        ->where(function ($query) use ($request) {
-                            $query->where("studens", 'LIKE' , '%"'.$request->user()->id.'"%')
-                                ->orWhere('dpm', $request->user()->dpm);
-                        })
-                        // Add your search condition here before paginate
-                        ->when($search, function ($query) use ($search) {
-                            return $query->where('title', 'like', '%'.$search.'%');
-                        });
+        if ($search !== '!all!') {
+            // search in title
+            $courses1 = course::where('permission->dpm', "true")
+            ->where('dpm', $request->user()->dpm)
+            // Add your search condition here before paginate
+            ->when($search, function ($query) use ($search) {
+                return $query->where('title', 'like', '%'.$search.'%');
+            });
 
-        // search in course code
-        $courses2 = course::where('permission->dpm', "true")
-                        ->where(function ($query) use ($request) {
-                            $query->where("studens", 'LIKE' , '%"'.$request->user()->id.'"%')
-                                ->orWhere('dpm', $request->user()->dpm);
-                        })
-                        // Add your search condition here before paginate
-                        ->when($search, function ($query) use ($search) {
-                            return $query->where('code', 'like', '%'.$search.'%');
-                        })->union($courses1);
+            // search in course code
+            $courses2 = course::where('permission->dpm', "true")
+                    ->where('dpm', $request->user()->dpm)
+                    // Add your search condition here before paginate
+                    ->when($search, function ($query) use ($search) {
+                        return $query->where('code', 'like', '%'.$search.'%');
+                    })->union($courses1);
 
-        // query
-        $courses = $courses2->paginate(12);
+            // query
+            $courses = $courses2->paginate(12);
+        } else {
+            if ($request->user()->hasAnyRole('admin', 'staff')) {
+                $courses = course::where('permission->dpm', "true")->paginate(12);
+            } else {
+                $courses = course::where('permission->dpm', "true")->Where('dpm', $request->user()->dpm)->paginate(12);
+            }
+        }
 
         Activitylog::create([
             'user' => auth()->id(),
@@ -109,12 +149,16 @@ class CourseController extends Controller
     {
         $search = $request->get('search');
 
-        // search in title
-        $courses = course::where('permission->all', "true")
-                        ->where(function ($query) use ($search) {
-                            $query->where('title', 'like', '%'.$search.'%')
-                                ->orWhere('code', 'like', '%'.$search.'%');
-                        })->paginate(12);
+        if ($search !== '!all!') {
+            // search in title
+            $courses = course::where('permission->all', "true")
+            ->where(function ($query) use ($search) {
+                $query->where('title', 'like', '%'.$search.'%')
+                    ->orWhere('code', 'like', '%'.$search.'%');
+            })->paginate(12);
+        } else {
+            $courses = course::where('permission->all', "true")->paginate(12);
+        }
 
         Activitylog::create([
             'user' => auth()->id(),

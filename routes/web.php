@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     Auth::logout();
     return view('auth.login');
-});
+})->name('loginpage');
 
 // Route::get('/home', function () {
 //     return view('page.home');

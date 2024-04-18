@@ -24,7 +24,7 @@
                                     ->count();
                                 $less_all = App\Models\lesson::where('course', $course->id)->count();
                                 if ($less_all != 0) {
-                                    $prog_avg = ($prog_finish * 100) / $less_all;
+                                    $prog_avg = intval(($prog_finish * 100) / $less_all);
                                 } else {
                                     $prog_avg = 0;
                                 }
@@ -41,7 +41,7 @@
                                             <p class="card-text text-gray-600 text-sm">{{ Str::limit($course->description, 100) }}</p>
                                         </div>
                                         <div class="progress mt-2" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                            <div class="progress-bar" style="width: {{ $prog_avg }}%; font-size: 10px">{{ $prog_avg }}%</div>
+                                            <div class="progress-bar" style="width: {{ $prog_avg }}%; font-size: 10px">{{ $prog_avg }}% ({{ $prog_finish }}/{{ $less_all }})</div>
                                         </div>
                                     </div>
                                 </div>

@@ -61,7 +61,7 @@
                                     ->count();
                                 $less_all = App\Models\lesson::where('course', $course->id)->count();
                                 if ($less_all != 0) {
-                                    $prog_avg = ($prog_finish * 100) / $less_all;
+                                    $prog_avg = intval(($prog_finish * 100) / $less_all);
                                 } else {
                                     $prog_avg = 0;
                                 }

@@ -236,11 +236,7 @@ class HomeController extends Controller
     }
 
     public function courseEnrolled(Request $request) {
-        if ($request->user()->hasAnyRole('admin', 'staff')) {
-            $courses = course::where("studens", 'LIKE' , '%"'.$request->user()->id.'"%')->orWhere("studens", 'LIKE' , '%"'.$request->user()->id.'"%')->paginate(12);
-        } else {
-            $courses = course::where("studens", 'LIKE' , '%"'.$request->user()->id.'"%')->paginate(12);
-        }
+        $courses = course::where("studens", 'LIKE' , '%"'.$request->user()->id.'"%')->paginate(12);
 
         $dpms = department::all();
 

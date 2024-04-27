@@ -101,7 +101,7 @@
                                                         qid="{{$sls->content ?? '0'}}"
                                                         pass="{{$quiz->pass_score ?? '0'}}"
                                                         qBy="{{$quiz->getCreated->name ?? 'unknow'}}"
-                                                        quesNum = "{{$sls->num_quest ?? $quesnum}}"
+                                                        quesNum = "{{$sls->num_quest > 0 ? $sls->num_quest : $quesnum}}"
                                                     >
                                                         {{ $sls->label }}
                                                         <span class="text-secondary" style="font-size: 12px">{{ __('messages.update') }} {{ $sls->date }} ({{ $sls->type }})</span>

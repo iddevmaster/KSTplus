@@ -103,7 +103,7 @@
                             </div>
 
                             @if ($quest->type)
-                                <div class="flex lg:gap-20 gap-3.5 bg-gray-200 p-2 mt-2 flex-wrap rounded">
+                                <div class="flex lg:gap-x-20 gap-3.5 bg-gray-200 p-2 mt-2 flex-wrap rounded">
                                     @foreach ($quest->answer as $aindex => $choice)
                                         <p class="
                                             {{$choice['id'] == $answers[$quest->id]['ans'] ? ($answers[$quest->id]['status'] ? 'text-green-500' : 'text-red-500') : ($choice['answer'] ? 'text-green-500' : '')}}

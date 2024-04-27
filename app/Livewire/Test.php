@@ -61,7 +61,7 @@ class Test extends Component
 
     public function gotoNextQuestion()
     {
-        $this->questions = session()->get('shuffled_questions');
+        // $this->questions = session()->get('shuffled_questions');
         if ($this->currentQuestion < $this->totalQuestion) {
             $this->currentQuestion++;
         } else {
@@ -71,7 +71,7 @@ class Test extends Component
 
     public function gotoPreviousQuestion()
     {
-        $this->questions = session()->get('shuffled_questions');
+        // $this->questions = session()->get('shuffled_questions');
         if ($this->currentQuestion > 1) {
             $this->currentQuestion--;
         }
@@ -80,7 +80,7 @@ class Test extends Component
     public function submitTest()
     {
         $this->endTest = Carbon::now()->format('Y-m-d H:i:s');
-        $this->questions = session()->get('shuffled_questions');
+        // $this->questions = session()->get('shuffled_questions');
         foreach ($this->answers as $key => $ans) {
             if ($this->quesType[$key] == 'c') {
                 $this->submitAns[$key] = [
@@ -102,7 +102,7 @@ class Test extends Component
 
                 $this->submitAns[$key] = [
                     "ans"=> $ans,
-                    "status"=> ($ans == $qAns ? 1 : 0 ),
+                    "status"=> ($ans == $qAns ? '1' : '0' ),
                     "type"=> $this->quesType[$key],
                 ];
             }

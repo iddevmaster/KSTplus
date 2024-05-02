@@ -12,8 +12,8 @@
             <option value="3">Nikola Tesla</option>
             <option value="5">Arnold Schwarzenegger</option>
         </select>
-        <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+        <link href="https://fastly.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
+        <script src="https://fastly.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
         <script>
             document.addEventListener('livewire:load', function () {
                 new TomSelect("#select-beast", {

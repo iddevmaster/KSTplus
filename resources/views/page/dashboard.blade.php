@@ -581,7 +581,7 @@
         </div>
     </div>
 </x-app-layout>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/chart.js"></script>
 
 <script>
     const ctx = document.getElementById('myChart');

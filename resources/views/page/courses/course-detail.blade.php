@@ -425,7 +425,7 @@
                 title: 'Add text',
                 html:
                     '<input id="swal-input1" class="swal2-input" placeholder="Enter label">' +
-                    '<textarea id="content" class="w-100" rows="5" placeholder="Enter text content" value=" "> </textarea>',
+                    '<textarea id="subTextContent" class="w-100" rows="5" placeholder="Enter text content" value=" "> </textarea>',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',

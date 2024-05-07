@@ -35,7 +35,7 @@
                                             <div class="mb-3 flex justify-between">
                                                 <div>
                                                     <p class="fw-bold">{{ $sls->label }}</p>
-                                                    <p style="text-indent: 1.5em">{{ $sls->content }}</p>
+                                                    <p>{!! $sls->content !!}</p>
                                                 </div>
                                                 <div>
                                                     @if (($course->teacher == Auth::user()->id) || (auth()->user()->hasRole('admin')))
@@ -285,6 +285,7 @@
         </div>
     </div>
 </x-app-layout>
+<script src="https://cdn.tiny.cloud/1/4vdoimdjlqj1524p4qwd6k1jg1w71ys0syull57gnp048kgf/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     $(document).ready(function() {
         $('.chapter').click(function() {
@@ -432,7 +433,7 @@
                 showLoaderOnConfirm: true,
                 preConfirm: () => {
                     const label = document.getElementById('swal-input1').value;
-                    let content = document.getElementById('content').value;
+                    let content = tinymce.get('subTextContent').getContent();
 
                     if (!label) {
                         Swal.showValidationMessage("Label is required!");
@@ -463,7 +464,19 @@
                         })
                     }
                 },
-                allowOutsideClick: () => !Swal.isLoading()
+                allowOutsideClick: () => !Swal.isLoading(),
+                onOpen: () => {
+                    tinymce.init({
+                        selector: 'textarea#subTextContent', // Replace this CSS selector to match the placeholder element for TinyMCE
+                        plugins: 'lists textcolor fontsize',
+                        toolbar: 'fontsize  | bold italic underline | forecolor backcolor | bullist numlist | alignleft aligncenter alignright |',
+                        menubar: false,
+                        height: 200,
+                    });
+                },
+                onClose: () => {
+                    tinymce.get('subTextContent').remove(); // Remove TinyMCE instance when SweetAlert is closed
+                }
             }).then((result) => {
                 if (result.isConfirmed) {
                     console.log(result.value);

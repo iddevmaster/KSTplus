@@ -23,11 +23,11 @@
                         @endif
                         <div class="grid grid-cols-2">
                             <p class="font-normal text-gray-700">จาก: {{ $req->getUser->name }}</p>
-                            {{-- @if ($req->target === '-')
+                            @if ($req->target === '-')
                                 <p class="font-normal text-gray-700">ให้: {{ $req->target }}</p>
                             @else
-                                <p class="font-normal text-gray-700">ให้: {{ $req->getTarget->name }}</p>
-                            @endif --}}
+                                <p class="font-normal text-gray-700">ให้: {{ optional($req->getTarget)->name }}</p>
+                            @endif
                             <p class="font-normal text-gray-700">เมื่อ: {{ Carbon\Carbon::parse($req->created_at)->setTimezone('Asia/Bangkok')->locale('th')->thaidate('j M Y') }}</p>
                         </div>
                         <div class="mb-3">

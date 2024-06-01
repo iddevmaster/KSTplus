@@ -21,7 +21,7 @@
                                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">คำขออื่นๆ</h5>
                             </a>
                         @endif
-                        <div class="grid grid-cols-2">
+                        {{-- <div class="grid grid-cols-2">
                             <p class="font-normal text-gray-700">จาก: {{ $req->getUser->name }}</p>
                             @if ($req->target === '-')
                                 <p class="font-normal text-gray-700">ให้: {{ $req->target }}</p>
@@ -29,8 +29,8 @@
                                 <p class="font-normal text-gray-700">ให้: {{ $req->getTarget->name }}</p>
                             @endif
                             <p class="font-normal text-gray-700">เมื่อ: {{ Carbon\Carbon::parse($req->created_at)->setTimezone('Asia/Bangkok')->locale('th')->thaidate('j M Y') }}</p>
-                        </div>
-                        {{-- <div class="mb-3">
+                        </div> --}}
+                        <div class="mb-3">
                             @if ($req->type === 'course')
                                 <p class="font-normal text-gray-700">หลักสูตร:</p>
                                 @foreach ((App\Models\course::whereIn('id', json_decode($req->content))->pluck('code', 'title') ?? []) as $title => $code)
@@ -40,7 +40,7 @@
                                 <p class="font-normal text-gray-700">ข้อความ:</p>
                                 <p class="font-normal text-gray-700 ms-4">{{ $req->content }}</p>
                             @endif
-                        </div> --}}
+                        </div>
 
                         @if ($req->status === '0')
                             @hasanyrole('staff|admin')

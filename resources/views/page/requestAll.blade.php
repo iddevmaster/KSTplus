@@ -21,15 +21,15 @@
                                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">คำขออื่นๆ</h5>
                             </a>
                         @endif
-                        {{-- <div class="grid grid-cols-2">
+                        <div class="grid grid-cols-2">
                             <p class="font-normal text-gray-700">จาก: {{ $req->getUser->name }}</p>
-                            @if ($req->target === '-')
+                            {{-- @if ($req->target === '-')
                                 <p class="font-normal text-gray-700">ให้: {{ $req->target }}</p>
                             @else
                                 <p class="font-normal text-gray-700">ให้: {{ $req->getTarget->name }}</p>
-                            @endif
+                            @endif --}}
                             <p class="font-normal text-gray-700">เมื่อ: {{ Carbon\Carbon::parse($req->created_at)->setTimezone('Asia/Bangkok')->locale('th')->thaidate('j M Y') }}</p>
-                        </div> --}}
+                        </div>
                         <div class="mb-3">
                             @if ($req->type === 'course')
                                 <p class="font-normal text-gray-700">หลักสูตร:</p>

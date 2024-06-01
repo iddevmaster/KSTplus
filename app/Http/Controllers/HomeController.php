@@ -204,7 +204,7 @@ class HomeController extends Controller
         } else {
             $requests = user_request::where('user', $request->user()->id)->orderBy('id', 'desc')->get();
         }
-
+        dd($requests);
         if ($request->user()->hasPermissionTo('req')) {
             return view("page.requestAll", compact('requests'));
         } else {

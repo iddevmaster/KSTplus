@@ -205,10 +205,6 @@ class HomeController extends Controller
             $requests = user_request::where('user', $request->user()->id)->orderBy('id', 'desc')->get();
         }
 
-        Log::channel('activity')->info('User '. $request->user()->name .' visited requestAll',
-        [
-            'user' => $request->user(),
-        ]);
         if ($request->user()->hasPermissionTo('req')) {
             return view("page.requestAll", compact('requests'));
         } else {

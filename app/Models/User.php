@@ -32,11 +32,6 @@ class User extends Authenticatable
         'startlt',
     ];
 
-    public function getCoursesAttribute($value)
-    {
-        return json_decode($value, true);
-    }
-
     /**
      * The attributes that should be hidden for serialization.
      *

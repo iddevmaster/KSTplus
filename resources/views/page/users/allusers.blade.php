@@ -114,7 +114,14 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->role }}</td>
                                     <td>{{ optional($user->dpmName)->name }}</td>
-                                    <td>{{ count($user->courses ?? []) }}</td>
+                                    @php
+                                        if (is_array($user->courses)) {
+                                            $total_course = count($user->courses);
+                                        } else {
+                                            $total_course = count(json_decode($user->courses ?? '') ?? []);
+                                        }
+                                    @endphp
+                                    <td>{{ $total_course }}</td>
                                     <td>
                                         @php
                                             echo App\Models\course::where('teacher', $user->id)->count();

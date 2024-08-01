@@ -116,21 +116,28 @@ class HomeController extends Controller
         if ($request->user()->role == "new") {
             return redirect()->route('home');
         } else {
-            $allcourses = course::where('permission->all', "true")->take(8)->get();
+            // $allcourses = course::where('permission->all', "true")->whereNot("studens", 'LIKE' , '%"'.$request->user()->id.'"%')->take(8)->get();
+            $allcourses = Course::where('permission->all', "true")
+                    ->where(function ($query) use ($request) {
+                        $query->whereNull('studens')
+                            ->orWhere('studens', 'NOT LIKE', '%'.$request->user()->id.'%');
+                    })
+                    ->take(8)
+                    ->get();
             $mycourses = course::where("studens", 'LIKE' , '%"'.$request->user()->id.'"%')->take(8)->get();
             if ($request->user()->hasAnyRole('admin', 'staff')) {
                 $dpmcourses = course::where('permission->dpm', "true")->take(8)->get();
             } else {
-                $dpmcourses = course::where('permission->dpm', "true")
-                 ->where(function ($query) use ($request) {
-                     $query->Where('dpm', $request->user()->dpm);
-                 })->take(8)->get();
-            }
+                $dpmcourses = Course::where('permission->dpm', "true")
+                    ->where(function ($query) use ($request) {
+                        $query->whereNull('studens')
+                            ->orWhere('studens', 'NOT LIKE', '%'.$request->user()->id.'%');
+                    })
+                    ->where('dpm', $request->user()->dpm)
+                    ->take(8)
+                    ->get();
 
-            Log::channel('activity')->info('User '. $request->user()->name .' visited main page',
-            [
-                'user' => $request->user(),
-            ]);
+            }
             return view("page.main", compact("allcourses", "dpms", "dpmcourses", "mycourses"));
         }
     }
@@ -181,7 +188,12 @@ class HomeController extends Controller
         $permissions = Permission::all();
         $courses = course::all();
         $groups = course_group::all();
-        $ucourse = course::whereIn("id", $user->courses ?? [])->get();
+        if (is_array($user->courses)) {
+            $course_list = $user->courses ?? [];
+        } else {
+            $course_list = json_decode($user->courses ?? '') ?? [];
+        }
+        $ucourse = course::whereIn("id", $course_list)->get();
         $tests = Test::where('tester', $user->id)->orderBy('id', 'desc')->get();
         $ownCourse = course::where('teacher', $user->id)->orderBy('id', 'desc')->get();
 

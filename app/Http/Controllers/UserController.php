@@ -223,7 +223,12 @@ class UserController extends Controller
             $courses = course::whereIn('id', $request->courses )->get();
             $courseContainer = [];
             $stdContainer = [];
-            $oCourses = $user->courses ?? [];
+            if (is_array($user->courses)) {
+                $course_list = $user->courses ?? [];
+            } else {
+                $course_list = json_decode($user->courses ?? '');
+            }
+            $oCourses = $course_list ?? [];
             if (count($oCourses) > 0) {
                 $courseContainer = array_unique(array_merge($oCourses, $request->courses));
             } else {
@@ -241,7 +246,7 @@ class UserController extends Controller
                 $course->studens = $stdContainer;
                 $course->save();
             }
-            $user->courses = $courseContainer;
+            $user->courses = json_encode($courseContainer);
             $user->save();
 
             Activitylog::create([
@@ -279,7 +284,12 @@ class UserController extends Controller
 
             // remove course from user
             $userCourse = [];
-            foreach ($user->courses as $courseId) {
+            if (is_array($user->courses)) {
+                $course_list = $user->courses ?? [];
+            } else {
+                $course_list = json_decode($user->courses ?? '');
+            }
+            foreach ($course_list as $courseId) {
                 if ($request->cid != $courseId) {
                     $userCourse[] = $courseId;
                 }
@@ -287,7 +297,7 @@ class UserController extends Controller
 
             // save to database
             $course->studens = $studentsC;
-            $user->courses = $userCourse;
+            $user->courses = json_encode($userCourse);
             $user->save();
             $course->save();
 
@@ -343,7 +353,12 @@ class UserController extends Controller
             $courses = course::whereIn('id', $group->courses ?? [] )->get();
             $courseContainer = [];
             $stdContainer = [];
-            $oCourses = $user->courses ?? [];
+            if (is_array($user->courses)) {
+                $course_list = $user->courses;
+            } else {
+                $course_list = json_decode($user->courses ?? '');
+            }
+            $oCourses = $course_list ?? [];
             if (count($oCourses) > 0) {
                 $courseContainer = array_unique(array_merge($oCourses, $group->courses ?? []));
             } else {
@@ -361,7 +376,7 @@ class UserController extends Controller
                 $course->studens = $stdContainer;
                 $course->save();
             }
-            $user->courses = $courseContainer;
+            $user->courses = json_encode($courseContainer);
             $user->save();
 
             Activitylog::create([

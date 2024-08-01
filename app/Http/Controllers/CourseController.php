@@ -353,7 +353,12 @@ class CourseController extends Controller
             $user = User::find( $request->user()->id );
             $courseContainer = [];
             $stdContainer = [];
-            $oCourses = $user->courses ?? [];
+            if (is_array($user->courses)) {
+                $course_list = $user->courses ?? [];
+            } else {
+                $course_list = json_decode($user->courses ?? '');
+            }
+            $oCourses = $course_list ?? [];
 
             // ins user table -> course
             if (count($oCourses) > 0) {
@@ -369,10 +374,10 @@ class CourseController extends Controller
             if (!($stdContainer[$user->id] ?? false)) {
                 $stdContainer[$user->id] = date('Y-m-d');
             }
-            $course->studens = $stdContainer;
+            $course->studens = json_encode($stdContainer);
             $course->save();
 
-            $user->courses = $courseContainer;
+            $user->courses = json_encode($courseContainer);
             $user->save();
 
             Activitylog::create([
@@ -392,6 +397,49 @@ class CourseController extends Controller
             return redirect()->route('course.detail', ['id' => $cid]);
         }
 
+    }
+    public function enrollList(Request $request) {
+        try {
+            $course = course::find($request->course_id);
+            $user_list = $request->users;
+            foreach ($user_list ?? [] as $user_id) {
+                $user = User::find( $user_id );
+                $courseContainer = [];
+                $stdContainer = [];
+                if (is_array($user->courses)) {
+                    $course_list = $user->courses ?? [];
+                } else {
+                    $course_list = json_decode($user->courses ?? '');
+                }
+                $oCourses = $course_list ?? [];
+
+                // ins user table -> course
+                if (count($oCourses) > 0) {
+                    $courseContainer = array_unique(array_merge($oCourses, [(string) $course->id]));
+                } else {
+                    $courseContainer[] = (string) $course->id;
+                }
+                // ins course table -> studens
+                $oStd = $course->studens ?? [];
+                if (count($oStd) > 0) {
+                    $stdContainer = $oStd;
+                }
+                if (!($stdContainer[$user->id] ?? false)) {
+                    $stdContainer[$user->id] = date('Y-m-d');
+                }
+                $course->studens = json_encode($stdContainer);
+                $course->save();
+
+                $user->courses = json_encode($courseContainer);
+                $user->save();
+            }
+
+            return redirect()->back()->with('success','All user has been added.');
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th->getMessage());
+            return redirect()->back()->with('error','Something wrong!');
+        }
     }
 
     public function search(Request $request)

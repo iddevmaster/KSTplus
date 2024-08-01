@@ -92,6 +92,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/course/update', [CourseController::class,'update']);
     Route::post('/course/delete', [CourseController::class,'delete']);
     Route::get('/course{cid}/enroll', [CourseController::class,'enroll'])->name('enroll');
+    Route::get('/course/enroll/list', [CourseController::class,'enrollList'])->name('enroll-list');
     Route::get('/search-courses', [CourseController::class, 'search'])->name('courses.search');
     Route::get('/search-mycourses', [CourseController::class, 'searchMy'])->name('courses.searchmy');
     Route::post('/course/lesson/add', [CourseController::class,'addLesson'])->name('lesson.add');

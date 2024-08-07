@@ -209,7 +209,7 @@
                 })
                 .then(response => {
                     if (!response.ok) {
-                        console.log("Error: ", response)
+                        console.log("Error: ", response.json())
                         throw new Error(response.statusText)
                     }
                     return response.json()

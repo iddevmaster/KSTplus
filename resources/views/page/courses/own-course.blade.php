@@ -214,8 +214,9 @@
                     return response.json()
                 })
                 .catch(error => {
+                    console.log(error)
                     Swal.showValidationMessage(
-                        `Request failed` + error
+                        `Request failed`
                     )
                 })
             },

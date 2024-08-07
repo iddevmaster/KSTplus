@@ -14,7 +14,7 @@ class OwnAllCourse extends Component
 
     public function mount()
     {
-        $this->courses = course::where("teacher", Auth::user()->id)->get();
+        $this->courses = course::where("teacher", Auth::user()->id)->orderByDesc('created_at')->get();
         $this->user_list = User::orderByDesc('created_at')->get(['id', 'name']);
     }
 

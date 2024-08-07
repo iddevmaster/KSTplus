@@ -190,56 +190,52 @@ class CourseController extends Controller
             ]);
         }
 
-        try {
-            if ($request->hasFile('cimg')) {
-                $file = $request->file('cimg');
-                $filename = time(). '_' . $file->getClientOriginalName(); // Unique name
+        if ($request->hasFile('cimg')) {
+            $file = $request->file('cimg');
+            $filename = time(). '_' . $file->getClientOriginalName(); // Unique name
 
-                // Define the path within the public directory where you want to store the files
-                $destinationPath = public_path('uploads/course_imgs');
+            // Define the path within the public directory where you want to store the files
+            $destinationPath = public_path('uploads/course_imgs');
 
-                // Check if the directory exists, if not, create it
-                if (!File::isDirectory($destinationPath)) {
-                    File::makeDirectory($destinationPath, 0755, true);
-                }
-
-                // Move the file to the public directory
-                $file->move($destinationPath, $filename);
+            // Check if the directory exists, if not, create it
+            if (!File::isDirectory($destinationPath)) {
+                File::makeDirectory($destinationPath, 0755, true);
             }
 
-
-            $dpmName = department::find($request->user()->dpm);
-            $courses = course::withTrashed()->where('dpm', $request->user()->dpm)->count();
-            $courseNum = sprintf('%03d', $courses);
-            $course_perm = [
-                'all'=> $request->allPerm ?? '',
-                'dpm'=> $request->dpmPerm ?? '',
-            ];
-            $course = course::create([
-                'title'=> $request->title,
-                'description' => $request->desc,
-                'permission' => json_encode($course_perm),
-                'teacher' => $request->user()->id,
-                'dpm' => $request->user()->dpm,
-                'code' => ($dpmName->prefix).($courseNum),
-                'img' => $filename ?? null,
-            ]);
-
-            Activitylog::create([
-                'user' => auth()->id(),
-                'module' => 'Course',
-                'content' => $course->id,
-                'note' => 'store',
-            ]);
-            Log::channel('activity')->info('User '. $request->user()->name .' store course',
-            [
-                'user_id' => auth()->id(),
-                'course_id' => $course->id,
-            ]);
-            return response()->json(['success' => $request->all()]);
-        } catch (\Throwable $th) {
-            return response()->json(['error' => $th->getMessage()]);
+            // Move the file to the public directory
+            $file->move($destinationPath, $filename);
         }
+
+
+        $dpmName = department::find($request->user()->dpm);
+        $courses = course::withTrashed()->where('dpm', $request->user()->dpm)->count();
+        $courseNum = sprintf('%03d', $courses);
+        $course_perm = [
+            'all'=> $request->allPerm ?? '',
+            'dpm'=> $request->dpmPerm ?? '',
+        ];
+        $course = course::create([
+            'title'=> $request->title,
+            'description' => $request->desc,
+            'permission' => json_encode($course_perm),
+            'teacher' => $request->user()->id,
+            'dpm' => $request->user()->dpm,
+            'code' => ($dpmName->prefix).($courseNum),
+            'img' => $filename ?? null,
+        ]);
+
+        Activitylog::create([
+            'user' => auth()->id(),
+            'module' => 'Course',
+            'content' => $course->id,
+            'note' => 'store',
+        ]);
+        Log::channel('activity')->info('User '. $request->user()->name .' store course',
+        [
+            'user_id' => auth()->id(),
+            'course_id' => $course->id,
+        ]);
+        return response()->json(['success' => $request->all()]);
     }
 
     public function update(Request $request) {

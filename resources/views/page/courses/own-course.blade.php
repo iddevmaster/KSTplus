@@ -221,7 +221,8 @@
             },
             allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
-            window.location.reload()
+            // window.location.reload();
+            console.log("Add course success: " ,result);
         });
 
     }
@@ -268,7 +269,11 @@
                     'Deleted!',
                     'Your file has been deleted.',
                     'success'
-                    )
+                    ).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload();
+                        }
+                    })
                 }
             })
         });

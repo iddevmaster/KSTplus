@@ -209,7 +209,7 @@
                 })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error(response.statusText)
+                        throw new Error(response.statusText + response)
                     }
                     return response.json()
                 })
@@ -222,8 +222,9 @@
             },
             allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
-            // window.location.reload();
-            console.log("Add course success: " ,result);
+            if (result.isConfirmed) {
+                window.location.reload();
+            }
         });
 
     }

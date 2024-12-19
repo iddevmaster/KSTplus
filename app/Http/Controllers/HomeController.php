@@ -143,7 +143,8 @@ class HomeController extends Controller
     }
 
     public function home(Request $request) {
-        $courses = course::whereIn("id", $request->user()->courses)->latest()->get();
+        $user_course = json_decode($request->user()->courses, true) ?? [];
+        $courses = course::whereIn("id", $user_course)->latest()->get();
         $user = $request->user();
 
         Log::channel('activity')->info('User '. $request->user()->name .' visited Home page',

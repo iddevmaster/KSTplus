@@ -115,6 +115,7 @@
                                     <td>{{ $user->role }}</td>
                                     <td>{{ optional($user->dpmName)->name }}</td>
                                     @php
+                                        dd($user->courses);
                                         if (is_array($user->courses)) {
                                             $total_course = count($user->courses ?? []);
                                         } else {

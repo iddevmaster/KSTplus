@@ -92,7 +92,7 @@
                 </div>
             </div>
 
-            <div class="sm:rounded-lg p-4 row">
+            {{-- <div class="sm:rounded-lg p-4 row">
                 <div class="bg-light p-4 rounded ">
                     <table class="table table-sm table-hover" id="users-datatable">
                         <thead>
@@ -174,7 +174,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </x-app-layout>

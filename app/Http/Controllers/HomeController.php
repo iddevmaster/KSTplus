@@ -170,7 +170,7 @@ class HomeController extends Controller
 
         foreach ($users as $key => $user) {
             if (!is_array($user->courses) || !(count($user->courses) > 0) || !is_null($user->courses)) {
-                dd($user);
+                dd($user, is_null($user->courses));
             }
         }
 

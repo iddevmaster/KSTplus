@@ -167,8 +167,12 @@ class HomeController extends Controller
         $roles = Role::all();
         $permissions = Permission::all();
         $courses = course::all();
+        $debugArray = [];
+        foreach ($users as $key => $user) {
+            $debugArray[$key] = $user->courses;
+        }
 
-        dd($users);
+        dd($debugArray);
 
         if ($request->user()->hasPermissionTo('userm') || $request->user()->hasRole('admin')) {
             return view("page.users.allusers", compact("users","dpms","agns","brns", "roles", "permissions", "courses"));

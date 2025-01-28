@@ -167,8 +167,9 @@ class HomeController extends Controller
         $roles = Role::all();
         $permissions = Permission::all();
         $courses = course::all();
-        dd($users);
+
         if ($request->user()->hasPermissionTo('userm') || $request->user()->hasRole('admin')) {
+            dd($users);
             return view("page.users.allusers", compact("users","dpms","agns","brns", "roles", "permissions", "courses"));
         } else {
             return redirect('/');

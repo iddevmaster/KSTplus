@@ -121,6 +121,7 @@
                                         } else {
                                             $total_course = count(json_decode($user->courses ?? '') ?? []);
                                         }
+                                        dd($total_course);
                                     @endphp
                                     <td>{{ $total_course }}</td>
                                     <td>

@@ -116,7 +116,7 @@
                                     <td>{{ optional($user->dpmName)->name }}</td>
                                     @php
                                         if (is_array($user->courses)) {
-                                            $total_course = count($user->courses);
+                                            $total_course = count($user->courses ?? []);
                                         } else {
                                             $total_course = count(json_decode($user->courses ?? '') ?? []);
                                         }

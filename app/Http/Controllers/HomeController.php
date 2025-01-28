@@ -160,23 +160,18 @@ class HomeController extends Controller
     }
 
     public function allUsers(Request $request) {
-        try {
-            $users = User::all();
-            $agns = agency::all();
-            $dpms = department::all();
-            $brns = branch::all();
-            $roles = Role::all();
-            $permissions = Permission::all();
-            $courses = course::all();
+        $users = User::all();
+        $agns = agency::all();
+        $dpms = department::all();
+        $brns = branch::all();
+        $roles = Role::all();
+        $permissions = Permission::all();
+        $courses = course::all();
 
-            if ($request->user()->hasPermissionTo('userm') || $request->user()->hasRole('admin')) {
-                return view("page.users.allusers", compact("users","dpms","agns","brns", "roles", "permissions", "courses"));
-            } else {
-                return redirect('/');
-            }
-        } catch (\Throwable $th) {
-            //throw $th;
-            dd($th->getMessage());
+        if ($request->user()->hasPermissionTo('userm') || $request->user()->hasRole('admin')) {
+            return view("page.users.allusers", compact("users","dpms","agns","brns", "roles", "permissions", "courses"));
+        } else {
+            return redirect('/');
         }
     }
 

@@ -92,7 +92,7 @@
                 </div>
             </div>
 
-            {{-- <div class="sm:rounded-lg p-4 row">
+            <div class="sm:rounded-lg p-4 row">
                 <div class="bg-light p-4 rounded ">
                     <table class="table table-sm table-hover" id="users-datatable">
                         <thead>
@@ -114,7 +114,7 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->role }}</td>
                                     <td>{{ optional($user->dpmName)->name }}</td>
-                                    @php
+                                    {{-- @php
                                         if (is_null($user->courses)) {
                                             $total_course = 0;
                                         }
@@ -124,7 +124,7 @@
                                             $total_course = count(json_decode($user->courses ?? '') ?? []);
                                         }
                                     @endphp
-                                    <td>{{ $total_course }}</td>
+                                    <td>{{ $total_course }}</td> --}}
                                     <td>
                                         @php
                                             echo App\Models\course::where('teacher', $user->id)->count();
@@ -174,7 +174,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div> --}}
+            </div>
         </div>
     </div>
 </x-app-layout>

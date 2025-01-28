@@ -173,7 +173,7 @@ class HomeController extends Controller
                 if (is_array($user->courses)) {
                     $total_course = count($user->courses ?? []);
                 } else {
-                    $total_course = count(json_decode($user->courses ?? '') ?? []);
+                    $total_course = count(json_decode($user->courses ?? '', true) ?? []);
                 }
                 $debugArray[$key] = $total_course;
             }

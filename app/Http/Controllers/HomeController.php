@@ -168,11 +168,6 @@ class HomeController extends Controller
         $permissions = Permission::all();
         $courses = course::all();
 
-        Log::channel('activity')->info('User '. $request->user()->name .' visited alluser',
-        [
-            'user_id' => $request->user(),
-        ]);
-
         if ($request->user()->hasPermissionTo('userm') || $request->user()->hasRole('admin')) {
             return view("page.users.allusers", compact("users","dpms","agns","brns", "roles", "permissions", "courses"));
         } else {

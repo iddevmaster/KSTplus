@@ -116,12 +116,12 @@
                                     <td>{{ optional($user->dpmName)->name }}</td>
                                     @php
                                         $total_course = 0;
-                                        dd($user->courses, count(json_decode($user->courses ?? '') ?? []));
-                                        // if (is_array($user->courses)) {
-                                        //     $total_course = count($user->courses ?? []);
-                                        // } else {
-                                        //     $total_course = count(json_decode($user->courses ?? '') ?? []);
-                                        // }
+                                        if (is_array($user->courses)) {
+                                            $total_course = count($user->courses ?? []);
+                                        } else {
+                                            dd($user->courses);
+                                            $total_course = count(json_decode($user->courses ?? '') ?? []);
+                                        }
                                     @endphp
                                     <td>{{ $total_course }}</td>
                                     <td>

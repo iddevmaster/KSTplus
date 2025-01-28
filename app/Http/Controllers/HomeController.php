@@ -168,6 +168,12 @@ class HomeController extends Controller
         $permissions = Permission::all();
         $courses = course::all();
 
+        foreach ($users as $key => $user) {
+            if (!is_array($user->courses) && !count($user->courses) > 0 && !is_null($user->courses)) {
+                dd($user);
+            }
+        }
+
         if ($request->user()->hasPermissionTo('userm') || $request->user()->hasRole('admin')) {
             return view("page.users.allusers", compact("users","dpms","agns","brns", "roles", "permissions", "courses"));
         } else {

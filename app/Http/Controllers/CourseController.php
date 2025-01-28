@@ -356,7 +356,7 @@ class CourseController extends Controller
             if (is_array($user->courses)) {
                 $course_list = $user->courses ?? [];
             } else {
-                $course_list = json_decode($user->courses ?? '');
+                $course_list = json_decode($user->courses ?? '', true);
             }
             $oCourses = $course_list ?? [];
 
@@ -409,7 +409,7 @@ class CourseController extends Controller
                 if (is_array($user->courses)) {
                     $course_list = $user->courses ?? [];
                 } else {
-                    $course_list = json_decode($user->courses ?? '');
+                    $course_list = json_decode($user->courses ?? '', true);
                 }
                 $oCourses = $course_list ?? [];
 
@@ -655,7 +655,7 @@ class CourseController extends Controller
                 if (is_null($lesson->sub_lessons)) {
                     $subContainer = [];
                 } else {
-                    $subContainer = json_decode($lesson->sub_lessons);
+                    $subContainer = json_decode($lesson->sub_lessons, true);
                 }
                 $subContainer[] = $subless;
                 if ($lesson) {
@@ -682,7 +682,7 @@ class CourseController extends Controller
                 if (is_null($lesson->sub_lessons)) {
                     $subContainer = [];
                 } else {
-                    $subContainer = json_decode($lesson->sub_lessons);
+                    $subContainer = json_decode($lesson->sub_lessons, true);
                 }
                 $subContainer[] = $subless;
                 if ($lesson) {
@@ -725,7 +725,7 @@ class CourseController extends Controller
 
             if ($lesson) {
                 if (!is_null($lesson->sub_lessons)) {
-                    $oldContainer = json_decode($lesson->sub_lessons);
+                    $oldContainer = json_decode($lesson->sub_lessons, true);
                     foreach ($oldContainer as $key => $item) {
                         if ($key != $request->delid) {
                             $subContainer[] = $item;

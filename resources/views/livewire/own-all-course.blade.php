@@ -29,7 +29,7 @@
                             <i class="bi bi-person-plus-fill"></i>
                     </button>
 
-                    <button class="btn btn-info btn-sm edit-btn text-white" value="{{$course->id}}" ctitle="{{ $course->title }}" cdesc="{{ $course->description}}" allPerm="{{ json_decode($course->permission)->all ?? '' }}"  dpmPerm="{{ json_decode($course->permission)->dpm ?? '' }}"><i class="bi bi-gear"></i></button>
+                    <button class="btn btn-info btn-sm edit-btn text-white" value="{{$course->id}}" ctitle="{{ $course->title }}" cdesc="{{ $course->description}}" allPerm="{{ json_decode($course->permission, true)->all ?? '' }}"  dpmPerm="{{ json_decode($course->permission, true)->dpm ?? '' }}"><i class="bi bi-gear"></i></button>
                     <button class="btn btn-danger btn-sm delete-btn" value="{{$course->id}}"><i class="bi bi-trash"></i></button>
                 </div>
             </div>

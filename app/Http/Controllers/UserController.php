@@ -226,7 +226,7 @@ class UserController extends Controller
             if (is_array($user->courses)) {
                 $course_list = $user->courses ?? [];
             } else {
-                $course_list = json_decode($user->courses ?? '');
+                $course_list = json_decode($user->courses ?? '', true);
             }
             $oCourses = $course_list ?? [];
             if (count($oCourses) > 0) {
@@ -287,7 +287,7 @@ class UserController extends Controller
             if (is_array($user->courses)) {
                 $course_list = $user->courses ?? [];
             } else {
-                $course_list = json_decode($user->courses ?? '');
+                $course_list = json_decode($user->courses ?? '', true);
             }
             foreach ($course_list as $courseId) {
                 if ($request->cid != $courseId) {
@@ -356,7 +356,7 @@ class UserController extends Controller
             if (is_array($user->courses)) {
                 $course_list = $user->courses;
             } else {
-                $course_list = json_decode($user->courses ?? '');
+                $course_list = json_decode($user->courses ?? '', true);
             }
             $oCourses = $course_list ?? [];
             if (count($oCourses) > 0) {

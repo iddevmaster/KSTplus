@@ -187,7 +187,7 @@ class HomeController extends Controller
         if (is_array($user->courses)) {
             $course_list = $user->courses ?? [];
         } else {
-            $course_list = json_decode($user->courses ?? '') ?? [];
+            $course_list = json_decode($user->courses ?? '', true) ?? [];
         }
         $ucourse = course::whereIn("id", $course_list)->get();
         $tests = Test::where('tester', $user->id)->orderBy('id', 'desc')->get();

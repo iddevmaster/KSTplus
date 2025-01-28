@@ -33,7 +33,7 @@
                         <div class="mb-3">
                             @if ($req->type === 'course')
                                 <p class="font-normal text-gray-700">หลักสูตร:</p>
-                                @foreach ((App\Models\course::whereIn('id', json_decode($req->content))->pluck('code', 'title') ?? []) as $title => $code)
+                                @foreach ((App\Models\course::whereIn('id', json_decode($req->content, true))->pluck('code', 'title') ?? []) as $title => $code)
                                     <p class="font-normal text-gray-700 ms-4">- {{ $code }} :: {{ $title }}</p>
                                 @endforeach
                             @else

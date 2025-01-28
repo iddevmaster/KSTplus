@@ -168,13 +168,18 @@ class HomeController extends Controller
         $permissions = Permission::all();
         $courses = course::all();
         $debugArray = [];
-        foreach ($users as $key => $user) {
-            if (is_array($user->courses)) {
-                $total_course = count($user->courses ?? []);
-            } else {
-                $total_course = count(json_decode($user->courses ?? '') ?? []);
+        try {
+            foreach ($users as $key => $user) {
+                if (is_array($user->courses)) {
+                    $total_course = count($user->courses ?? []);
+                } else {
+                    $total_course = count(json_decode($user->courses ?? '') ?? []);
+                }
+                $debugArray[$key] = $total_course;
             }
-            $debugArray[$key] = $total_course;
+        } catch (\Throwable $th) {
+            //throw $th;
+            $debugArray['error'] = $th->getMessage();
         }
 
         dd($debugArray);

@@ -167,22 +167,6 @@ class HomeController extends Controller
         $roles = Role::all();
         $permissions = Permission::all();
         $courses = course::all();
-        $debugArray = [];
-        try {
-            foreach ($users as $key => $user) {
-                if (is_array($user->courses)) {
-                    $total_course = count($user->courses ?? []);
-                } else {
-                    $total_course = count(json_decode($user->courses ?? '', true) ?? []);
-                }
-                $debugArray[$key] = $total_course;
-            }
-        } catch (\Throwable $th) {
-            //throw $th;
-            $debugArray['error'] = $th->getMessage();
-        }
-
-        dd($debugArray);
 
         if ($request->user()->hasPermissionTo('userm') || $request->user()->hasRole('admin')) {
             return view("page.users.allusers", compact("users","dpms","agns","brns", "roles", "permissions", "courses"));

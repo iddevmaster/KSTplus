@@ -30,10 +30,10 @@
                                     $sublesson = json_decode($strSubless, true);
                                     @endphp
                                 @if (!is_null($sublesson))
-                                            @php
-                                                dd("type ", $sublesson);
-                                            @endphp
                                     @foreach ($sublesson as $index => $sls)
+                                            @php
+                                                dd("type", $sls);
+                                            @endphp
                                         @if ($sls->type === 'text')
                                             <div class="mb-3 flex justify-between">
                                                 <div>

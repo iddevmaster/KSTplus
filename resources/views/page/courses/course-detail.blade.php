@@ -31,7 +31,7 @@
                                     @endphp
                                 @if (!is_null($sublesson))
                                     @foreach ($sublesson as $index => $sls)
-                                        @if ($sls->type == 'text')
+                                        @if ($sls->type === 'text')
                                             @php
                                                 dd("type");
                                             @endphp

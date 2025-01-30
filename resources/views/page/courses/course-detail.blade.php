@@ -29,7 +29,117 @@
                                     $strSubless = $lesson->sub_lessons;
                                     $sublesson = json_decode($strSubless, true);
                                 @endphp
-
+                                @if (!is_null($sublesson))
+                                    @foreach ($sublesson as $index => $sls)
+                                        @php
+                                            dd($sls->type);
+                                        @endphp
+                                        @if ($sls->type == 'text')
+                                            <div class="mb-3 flex justify-between">
+                                                <div>
+                                                    <p class="fw-bold">{{ $sls->label }}</p>
+                                                    <p>{!! $sls->content !!}</p>
+                                                </div>
+                                                <div>
+                                                    @if (($course->teacher == Auth::user()->id) || (auth()->user()->hasRole('admin')))
+                                                        <button class="btn text-danger btn-sm deleteSubBtn" value="{{ $index }}" lessIdVal="{{ $lesson->id }}"><i class="bi bi-trash"></i></button>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @elseif ($sls->type == 'file')
+                                            <div class="mb-3 flex justify-between">
+                                                <div>
+                                                    <i class="bi bi-file-earmark bg-secondary rounded-circle p-1 text-light"></i>
+                                                    <a
+                                                        class="text-primary viewFilebtn cursor-pointer chapter"
+                                                        data-file-path="{{ asset('uploads/sublessons/' . $sls->content) }}"
+                                                        data-cid="{{ $course->id }}"
+                                                        data-lessid="{{ $lesson->id }}"
+                                                        value="{{$sls->content}}"
+                                                    >
+                                                        {{ $sls->label }}
+                                                        <span class="text-secondary" style="font-size: 12px">{{ __('messages.update') }} {{ $sls->date }} ({{ $sls->type }})</span>
+                                                    </a>
+                                                </div>
+                                                <div>
+                                                    @if (($course->teacher == Auth::user()->id) || (auth()->user()->hasRole('admin')))
+                                                        <button class="btn text-danger btn-sm deleteSubBtn" value="{{ $index }}" lessIdVal="{{ $lesson->id }}"><i class="bi bi-trash"></i></button>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @elseif ($sls->type == 'embed')
+                                            <div class="mb-3 flex justify-between">
+                                                <div>
+                                                    <i class="bi bi-code-slash bg-secondary rounded-circle p-1 text-light"></i>
+                                                    <a
+                                                        class="text-primary viewEmbed cursor-pointer chapter"
+                                                        value="1"
+                                                        data-cid="{{ $course->id }}"
+                                                        data-lessid="{{ $lesson->id }}"
+                                                        embedTitle="{{$sls->label}}"
+                                                        embedCode="{{$sls->content}}"
+                                                    >
+                                                        {{ $sls->label }}
+                                                        <span class="text-secondary" style="font-size: 12px">{{ __('messages.update') }} {{ $sls->date }} ({{ $sls->type }})</span>
+                                                    </a>
+                                                </div>
+                                                <div>
+                                                    @if (($course->teacher == Auth::user()->id) || (auth()->user()->hasRole('admin')))
+                                                        <button class="btn text-danger btn-sm deleteSubBtn" value="{{ $index }}" lessIdVal="{{ $lesson->id }}"><i class="bi bi-trash"></i></button>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @elseif ($sls->type == 'quiz')
+                                            @php
+                                                $quiz = App\Models\quiz::find($sls->content);
+                                                $quesnum = App\Models\question::where('quiz', $sls->content)->count();
+                                            @endphp
+                                            <div class="mb-3 flex justify-between">
+                                                <div>
+                                                    <i class="bi bi-list-check bg-secondary rounded-circle p-1 text-light"></i>
+                                                    <a
+                                                        class="text-primary preQuiz cursor-pointer chapter"
+                                                        qTitle="{{ $quiz->title ?? 'unknow'}}"
+                                                        cid="{{$course->id ?? '0'}}"
+                                                        qid="{{$sls->content ?? '0'}}"
+                                                        pass="{{$quiz->pass_score ?? '0'}}"
+                                                        qBy="{{$quiz->getCreated->name ?? 'unknow'}}"
+                                                        quesNum = "{{($sls->num_quest ?? false) ? ($sls->num_quest > 0 ? $sls->num_quest : $quesnum) : $quesnum}}"
+                                                    >
+                                                        {{ $sls->label }}
+                                                        <span class="text-secondary" style="font-size: 12px">{{ __('messages.update') }} {{ $sls->date }} ({{ $sls->type }})</span>
+                                                    </a>
+                                                </div>
+                                                <div>
+                                                    @if (($course->teacher == Auth::user()->id) || (auth()->user()->hasRole('admin')))
+                                                        <button class="btn text-danger btn-sm deleteSubBtn" value="{{ $index }}" lessIdVal="{{ $lesson->id }}"><i class="bi bi-trash"></i></button>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @else
+                                            <div class="mb-3 flex justify-between">
+                                                <div>
+                                                    @if ($sls->type == 'link')
+                                                        <i class="bi bi-link bg-secondary rounded-circle p-1 text-light"></i>
+                                                    @elseif ($sls->type == 'video')
+                                                        <i class="bi bi-play-fill bg-secondary rounded-circle p-1 text-light"></i>
+                                                    @endif
+                                                    <a href="{{ $sls->content }}"
+                                                        target="_BLANK"
+                                                        class="text-primary chapter"
+                                                        data-cid="{{ $course->id }}"
+                                                        data-lessid="{{ $lesson->id }}">{{ $sls->label }} <span class="text-secondary" style="font-size: 12px">{{ __('messages.update') }} {{ $sls->date }} ({{ $sls->type }})</span>
+                                                    </a>
+                                                </div>
+                                                <div>
+                                                    @if (($course->teacher == Auth::user()->id) || (auth()->user()->hasRole('admin')))
+                                                        <button class="btn text-danger btn-sm deleteSubBtn" value="{{ $index }}" lessIdVal="{{ $lesson->id }}"><i class="bi bi-trash"></i></button>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                @endif
                             </div>
 
                             @if (($course->teacher == Auth::user()->id) || (auth()->user()->hasRole('admin')))

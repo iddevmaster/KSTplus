@@ -20,14 +20,14 @@
                 </div>
 
                 @if (($course->studens[Auth::user()->id] ?? false) || ($course->teacher == Auth::user()->id) || (auth()->user()->hasRole('admin')))
+                    @php
+                        dd($sls->type);
+                    @endphp
                     @foreach ($lessons as $lesson)
                         <div class="card p-4 mb-4">
                             <p class="fw-bold fs-5">{{ $lesson->topic }}</p>
                             <div class="ps-4">
                                 <p class="mb-3" style="text-indent: 1.5em">{!! $lesson->desc !!}</p>
-                                @php
-                                    dd($sls->type);
-                                @endphp
                                 @php
                                     $strSubless = $lesson->sub_lessons;
                                     $sublesson = json_decode($strSubless, true);

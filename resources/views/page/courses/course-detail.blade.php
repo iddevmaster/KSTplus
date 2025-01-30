@@ -31,10 +31,10 @@
                                     @endphp
                                 @if (!is_null($sublesson))
                                     @foreach ($sublesson as $index => $sls)
-                                        @php
-                                            dd("type");
-                                        @endphp
                                         @if ($sls->type == 'text')
+                                            @php
+                                                dd("type");
+                                            @endphp
                                             <div class="mb-3 flex justify-between">
                                                 <div>
                                                     <p class="fw-bold">{{ $sls->label }}</p>

@@ -655,7 +655,7 @@ class CourseController extends Controller
                 if (is_null($lesson->sub_lessons)) {
                     $subContainer = [];
                 } else {
-                    $subContainer = json_decode($lesson->sub_lessons, true);
+                    $subContainer = json_decode($lesson->sub_lessons);
                 }
                 $subContainer[] = $subless;
                 if ($lesson) {
@@ -682,7 +682,7 @@ class CourseController extends Controller
                 if (is_null($lesson->sub_lessons)) {
                     $subContainer = [];
                 } else {
-                    $subContainer = json_decode($lesson->sub_lessons, true);
+                    $subContainer = json_decode($lesson->sub_lessons);
                 }
                 $subContainer[] = $subless;
                 if ($lesson) {
@@ -725,7 +725,7 @@ class CourseController extends Controller
 
             if ($lesson) {
                 if (!is_null($lesson->sub_lessons)) {
-                    $oldContainer = json_decode($lesson->sub_lessons, true);
+                    $oldContainer = json_decode($lesson->sub_lessons);
                     foreach ($oldContainer as $key => $item) {
                         if ($key != $request->delid) {
                             $subContainer[] = $item;

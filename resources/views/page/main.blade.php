@@ -28,7 +28,7 @@
                             <div class="course-container">
                                 @foreach ($alerts as $index => $alert)
                                     @php
-                                        $courses = App\Models\course::whereIn('id', json_decode($alert->content, true))->pluck('code', 'title');
+                                        $courses = App\Models\course::whereIn('id', json_decode($alert->content))->pluck('code', 'title');
                                     @endphp
                                     @foreach ($courses as $title => $code)
                                         <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50" role="alert">

@@ -1,5 +1,100 @@
 <x-app-layout>
-    <h1>awdwadwadawdaw</h1>
+    <x-slot name="header">
+        <div class="font-semibold text-xl text-gray-800 leading-tight d-flex justify-content-between">
+            <p>{{ $course->title }}</p>
+            @if (($course->teacher == Auth::user()->id) || (auth()->user()->hasRole('admin')))
+                <button class="badge btn btn-secondary" disabled>{{ __('messages.own') }}</button>
+            @elseif ($course->studens[Auth::user()->id] ?? false)
+                <button class="badge btn btn-success" disabled>{{ __('messages.enrolled') }}</button>
+            @else
+            <a href="{{ route('enroll', ['cid' => $course->id]) }}"><button class="badge btn" style="background-color: var(--primary-color)" >{{ __('messages.enroll') }}</button></a>
+            @endif
+        </div>
+    </x-slot>
+    <div class="container mt-5 pt-5">
+        <div class="row">
+            <div class="col-lg-10 col-sm-12 col-md-8 mb-4">
+                <div class="card py-2 px-4 mb-4">
+                    <p class="fw-bold fs-5">{{ __('messages.desc') }}</p>
+                    <p class="ps-4" style="text-indent: 1.5em">{{ $course->description }}</p>
+                </div>
+
+
+
+
+                @if (($course->teacher == Auth::user()->id) || (auth()->user()->hasRole('admin')))
+                    <div class="d-flex justify-content-center text-success ">
+                        <div class="bg-success rounded-pill align-self-center w-100 mx-4" style="height: 5px"></div>
+
+                        <!-- Modal -->
+                        <div class="d-flex btn btn-success rounded-pill addtopic-btn" data-bs-toggle="modal" data-bs-target="#addTopic">
+                            <i class="bi bi-plus-circle fs-5"></i>
+                            <p class="text-nowrap align-self-center ms-2 ">{{ __('messages.add_section') }}</p>
+                        </div>
+
+                        <div class="modal fade" id="addTopic" data-bs-backdrop="static" tabindex="-1" aria-labelledby="addTopicLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content bg-dark">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title text-light fs-5" id="addTopicLabel">{{ __('messages.add_section') }}</h1>
+                                    </div>
+                                    <form method="POST" action="{{ route('lesson.add') }}">
+                                        @csrf
+                                        <input type="hidden" value="{{$id}}" name="courseid">
+                                        <div class="modal-body bg-light text-dark">
+                                                <div class="form-floating mb-3">
+                                                    <input type="text" class="form-control" name="topic" id="topic" placeholder="name@example.com" required>
+                                                    <label for="topic">Topic</label>
+                                                </div>
+                                                <div class="form-floating mb-3">
+                                                    <input type="text" class="form-control" name="desc" id="desc" maxlength="10000">
+                                                    <label for="desc">{{ __('messages.desc') }}</label>
+                                                </div>
+                                                {{-- <div>
+                                                    <textarea id="editor" name="desc"></textarea>
+                                                    <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+                                                    <script>
+                                                        ClassicEditor
+                                                            .create( document.querySelector( '#editor' ) )
+                                                            .catch( error => {
+                                                                console.error( error );
+                                                            } );
+                                                    </script>
+                                                </div> --}}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('messages.close') }}</button>
+                                            <button type="submit" class="btn btn-primary">{{ __('messages.save') }}</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-success rounded-pill align-self-center w-100 mx-4" style="height: 5px"></div>
+                    </div>
+                @endif
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-12">
+                <div class="card p-4">
+                    <p class="text-center fw-bold fs-5 mb-4">{{ __('messages.feature') }}</p>
+                    <p><b>{{ __('messages.cid') }}: </b> {{ $course->code }}</p>
+                    <p><b>{{ __('messages.Lecturer') }}: </b> {{ optional($course->getTeacher)->name }}</p>
+                    <p><b>{{ __('messages.dpm') }}: </b> {{ optional($course->getDpm)->name }}</p>
+                    <p><b>{{ __('messages.lesson') }}: </b> {{ $lessons->count() }}</p>
+                    @php
+                        $updatetime = new DateTime($course->updated_at);
+                        $update = $updatetime->format('Y-m-d');
+
+                        $createtime = new DateTime($course->updated_at);
+                        $create = $createtime->format('Y-m-d');
+                    @endphp
+                    <p><b>{{ __('messages.update') }}: </b> {{ $update }}</p>
+                    <p><b>{{ __('messages.create') }}: </b> {{ $create }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </x-app-layout>
 <script src="https://cdn.tiny.cloud/1/4vdoimdjlqj1524p4qwd6k1jg1w71ys0syull57gnp048kgf/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>

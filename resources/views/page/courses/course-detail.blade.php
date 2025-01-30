@@ -21,7 +21,7 @@
 
                 @if (($course->studens[Auth::user()->id] ?? false) || ($course->teacher == Auth::user()->id) || (auth()->user()->hasRole('admin')))
                     @php
-                        dd($sls->type);
+                        dd("type");
                     @endphp
                     @foreach ($lessons as $lesson)
                         <div class="card p-4 mb-4">

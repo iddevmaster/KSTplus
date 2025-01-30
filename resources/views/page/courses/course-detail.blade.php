@@ -26,12 +26,12 @@
                             <div class="ps-4">
                                 <p class="mb-3" style="text-indent: 1.5em">{!! $lesson->desc !!}</p>
                                 @php
-                                    dd("type");
-                                @endphp
-                                @php
                                     $strSubless = $lesson->sub_lessons;
                                     $sublesson = json_decode($strSubless, true);
-                                @endphp
+                                    @endphp
+                                    @php
+                                        dd("type");
+                                    @endphp
                                 @if (!is_null($sublesson))
                                     @foreach ($sublesson as $index => $sls)
                                         @if ($sls->type == 'text')

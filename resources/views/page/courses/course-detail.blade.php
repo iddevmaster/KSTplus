@@ -29,11 +29,11 @@
                                     $strSubless = $lesson->sub_lessons;
                                     $sublesson = json_decode($strSubless, true);
                                 @endphp
+                                @php
+                                    dd($sls->type);
+                                @endphp
                                 @if (!is_null($sublesson))
                                     @foreach ($sublesson as $index => $sls)
-                                        @php
-                                            dd($sls->type);
-                                        @endphp
                                         @if ($sls->type == 'text')
                                             <div class="mb-3 flex justify-between">
                                                 <div>

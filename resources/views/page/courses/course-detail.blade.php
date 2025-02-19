@@ -751,9 +751,20 @@
                 title: fileNameValue,
                 width: '50%',
                 html: `<div style="height: 500px;">
-                            <iframe src="${pdfUrl}" style="width: 100%; height: 100%;object-fit:cover" frameborder="0"></iframe>
+                            <iframe id="pdf-viewer" src="${pdfUrl}" style="width: 100%; height: 100%;object-fit:cover" frameborder="0"></iframe>
                         </div>
                     `,
+                showCancelButton: false,
+                showConfirmButton: false,
+                footer: `
+                    <button id="fullscreen-btn" class="swal2-styled swal2-confirm">Full Screen</button>
+                `,
+                didOpen: () => {
+                    document.getElementById('fullscreen-btn').addEventListener('click',
+                        function() {
+                            window.open(pdfUrl, '_blank'); // Open in a new tab
+                        });
+                }
             })
         });
     });

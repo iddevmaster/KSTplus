@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\File;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use App\Models\Activitylog;
+use Illuminate\Support\Facades\Auth;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -106,23 +107,32 @@ class CourseController extends Controller
 
         if ($search !== '!all!') {
             // search in title
-            $courses1 = course::where('permission->dpm', "true")
-            ->where('dpm', $request->user()->dpm)
-            // Add your search condition here before paginate
-            ->when($search, function ($query) use ($search) {
-                return $query->where('title', 'like', '%'.$search.'%');
-            });
+            // $courses1 = course::where('permission->dpm', "true")
+            // ->where('dpm', $request->user()->dpm)
+            // // Add your search condition here before paginate
+            // ->when($search, function ($query) use ($search) {
+            //     return $query->where('title', 'like', '%'.$search.'%')->orWhere('code', 'like', '%'.$search.'%');
+            // });
+
+            $courses = course::where(function ($query) {
+                $query->where('dpm', Auth::user()->dpm)
+                    ->orWhere('permission->dpm', "true");
+            })
+            ->where(function ($query) use ($search) {
+                $query->where('title', 'like', '%'.$search.'%')
+                    ->orWhere('code', 'like', '%'.$search.'%');
+            })->paginate(12);
 
             // search in course code
-            $courses2 = course::where('permission->dpm', "true")
-                    ->where('dpm', $request->user()->dpm)
-                    // Add your search condition here before paginate
-                    ->when($search, function ($query) use ($search) {
-                        return $query->where('code', 'like', '%'.$search.'%');
-                    })->union($courses1);
+            // $courses2 = course::where('permission->dpm', "true")
+            //         ->where('dpm', $request->user()->dpm)
+            //         // Add your search condition here before paginate
+            //         ->when($search, function ($query) use ($search) {
+            //             return $query->where('code', 'like', '%'.$search.'%');
+            //         })->union($courses1);
 
             // query
-            $courses = $courses2->paginate(12);
+            // $courses = $courses2->paginate(12);
         } else {
             if ($request->user()->hasAnyRole('admin', 'staff')) {
                 $courses = course::where('permission->dpm', "true")->paginate(12);

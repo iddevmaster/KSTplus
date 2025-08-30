@@ -39,7 +39,7 @@
                                 </div> --}}
                             </td>
                             <td class="text-end">
-                                {{ $course_progres->last_learned_at ?? '' }}
+                                {{ $course_progres->last_learned_at ? Carbon\Carbon::parse($course_progres->last_learned_at)->thaidate('j M Y') : "-" }}
                             </td>
                         </tr>
                     @endforeach

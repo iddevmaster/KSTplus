@@ -78,7 +78,7 @@ class TestReport extends Component
 
     public function render()
     {
-        $tests = Test::orderBy('created_at', 'desc');
+        $tests = Test::whereHas('tester')->orderBy('created_at', 'desc');
 
         if (!empty($this->formData['filter_user'])) {
             $tests->where('tester', $this->formData['filter_user']);

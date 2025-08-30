@@ -29,6 +29,12 @@ class Test extends Model
         return $this->belongsTo(User::class, 'tester');
     }
 
+    public function tester()
+    {
+        return $this->getTester();
+    }
+
+
     public function getQuiz() {
         return $this->belongsTo(quiz::class, 'quiz');
     }

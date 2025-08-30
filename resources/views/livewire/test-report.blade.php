@@ -83,18 +83,16 @@
                         $page = $tests->currentPage();
                     @endphp
                     @foreach ($tests as $index => $test)
-                        @if (optional($test->getTester)->name && optional($test->getQuiz)->title)
-                            <tr>
-                                <td>{{ (($page -1) * 20) + $index+1 }}</td>
-                                <td class="text-nowrap" data-toggle="tooltip" data-placement="top"
-                                    title="{{ optional($test->getQuiz)->title }}">{{ optional($test->getQuiz)->title }}
-                                </td>
-                                <td>{{ optional($test->getTester)->name }}</td>
-                                <td>{{ optional(optional($test->getTester)->getBrn)->name ?? "-" }}</td>
-                                <td>{{ $test->score }} / {{ $test->totalScore }}</td>
-                                <td>{{ Carbon\Carbon::parse($test->start)->format('d-m-Y') }}</td>
-                            </tr>
-                        @endif
+                        <tr>
+                            <td>{{ (($page -1) * 20) + $index+1 }}</td>
+                            <td class="text-nowrap" data-toggle="tooltip" data-placement="top"
+                                title="{{ optional($test->getQuiz)->title }}">{{ optional($test->getQuiz)->title }}
+                            </td>
+                            <td>{{ optional($test->getTester)->name }}</td>
+                            <td>{{ optional(optional($test->getTester)->getBrn)->name ?? "-" }}</td>
+                            <td>{{ $test->score }} / {{ $test->totalScore }}</td>
+                            <td>{{ Carbon\Carbon::parse($test->start)->format('d-m-Y') }}</td>
+                        </tr>
                     @endforeach
                 @else
                     <tr>

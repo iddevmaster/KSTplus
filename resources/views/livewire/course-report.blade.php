@@ -13,7 +13,7 @@
                 </div>
                 <input type="search" id="simple-search"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
-                    placeholder="Search..." required wire:model="search" wire:keydown="searchCourse" />
+                    placeholder="ค้นหาชื่อหรือรหัส..." required wire:model="search" wire:keydown="searchCourse" />
             </div>
             <button type="button" wire:click="searchCourse"
                 class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">

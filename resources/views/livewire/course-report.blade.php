@@ -58,7 +58,7 @@
                             <td>{{ $course->code }}</td>
                             <td class="text-nowrap" data-toggle="tooltip" data-placement="top"
                                 title="{{ $course->title }}">
-                                {{ $course->title }}</td>
+                                {{ Str::limit($course->title, 60) }}</td>
                             <td>{{ optional($course->getTeacher)->name }}</td>
                             <td>{{ optional($course->getDpm)->name }}</td>
                             <td>{{ count($course->studens ?? []) }}</td>

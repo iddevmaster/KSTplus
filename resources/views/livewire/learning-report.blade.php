@@ -1,6 +1,6 @@
 <div class="bg-white p-4 rounded shadow-sm min-w-full">
     <div class="flex flex-wrap justify-between mb-3 gap-x-3">
-        <p class="text-2xl font-bold"><i class="bi bi-backpack"></i>{{ __('messages.All Course') }}</p>
+        <p class="text-2xl font-bold"><i class="bi bi-backpack"></i>ตารางการเรียน</p>
         <form wire:submit.prevent="filterLearning">
             <div class="flex gap-2">
                 <select id="small" wire:model="filter_user" aria-label="Filter quiz"
@@ -37,7 +37,7 @@
                     <th scope="col">ชื่อ</th>
                     <th scope="col">หลักสูตร</th>
                     <th scope="col">{{ __('messages.Progress') }}</th>
-                    <th scope="col">{{ __('messages.Enroll date') }}</th>
+                    <th scope="col">อัพเดทล่าสุด</th>
                 </tr>
             </thead>
             <tbody class="text-start">

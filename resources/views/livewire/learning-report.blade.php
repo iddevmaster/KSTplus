@@ -30,7 +30,7 @@
                             <td>{{ optional($course_progres->user)->name }}</td>
                             <td data-toggle="tooltip" data-placement="top" title="adwadawdawdaw">
                                 {{ Str::limit(optional($course_progres->course)->title, 60) }}</td>
-                            <td>
+                            <td class="text-center">
                                 {{ $prog_finish}} / {{$less_all}} ({{ $prog_avg }}%)
                                 {{-- <div class="progress" role="progressbar" aria-label="Example with label"
                                     aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
@@ -38,7 +38,7 @@
                                         {{ $prog_avg }}%</div>
                                 </div> --}}
                             </td>
-                            <td>
+                            <td class="text-end">
                                 {{ $course_progres->last_learned_at ?? '' }}
                             </td>
                         </tr>

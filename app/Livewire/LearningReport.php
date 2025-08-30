@@ -27,7 +27,7 @@ class LearningReport extends Component
             'course_id',
             DB::raw('COUNT(*) as learned_lesson'),
             DB::raw('MAX(created_at) as last_learned_at')
-        )->groupBy(['user_id', 'course_id'])->orderBy('last_learned_at', 'desc')->get();
+        )->whereHas('user')->groupBy(['user_id', 'course_id'])->orderBy('last_learned_at', 'desc')->get();
     }
 
     public function filterLearning() {

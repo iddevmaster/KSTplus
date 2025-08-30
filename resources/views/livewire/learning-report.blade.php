@@ -27,19 +27,16 @@
                         @endphp
                         <tr>
                             <th scope="row">{{ $index + 1 }}</th>
-                            <td>{{ optional($course_progres->user())->name }}</td>
+                            <td>{{ optional($course_progres->user)->name }}</td>
                             <td data-toggle="tooltip" data-placement="top" title="adwadawdawdaw">
-                                {{ Str::limit(optional($course_progres->course())->title, 60) }}</td>
+                                {{ Str::limit(optional($course_progres->course)->title, 60) }}</td>
                             <td>
-                                <div class="progress" role="progressbar" aria-label="Example with label"
+                                {{ $prog_finish}} / {{$less_all}} ({{ $prog_avg }}%)
+                                {{-- <div class="progress" role="progressbar" aria-label="Example with label"
                                     aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                                     <div class="progress-bar bg-success" style="width: {{ $prog_avg }}%">
                                         {{ $prog_avg }}%</div>
-                                </div>
-                                {{-- {{$prog_avg}}%
-                        <div class="w-full bg-gray-200 rounded-full h-2.5 ">
-                            <div class="bg-green-600 h-2.5 rounded-full " style="width: {{$prog_avg}}%"></div>
-                        </div> --}}
+                                </div> --}}
                             </td>
                             <td>
                                 {{ $course_progres->last_learned_at ?? '' }}

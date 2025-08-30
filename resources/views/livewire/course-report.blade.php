@@ -2,7 +2,7 @@
     <div class="flex flex-wrap justify-between mb-3">
         <p class="text-2xl font-bold"><i class="bi bi-backpack"></i>{{ __('messages.All Course') }}</p>
         <div class="flex items-center">
-            <label for="simple-search" class="sr-only">Search</label>
+            <label for="simple-search" class="sr-only">ค้นหาชื่อหรือรหัส</label>
             <div class="relative w-full">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                     <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"

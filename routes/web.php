@@ -6,6 +6,7 @@ use App\Http\Controllers\ManageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\ReqController;
 use Illuminate\Support\Facades\Route;
@@ -134,6 +135,14 @@ Route::middleware('auth')->group(function () {
 
     // Export file
     Route::get('/export/{type}', [HomeController::class, 'previewPDF'])->name('export.pdf');
+
+    // Report
+    Route::get('/report/course', [ReportController::class, 'courseReport'])->name('course.report');
+    Route::get('/report/test', [ReportController::class, 'testReport'])->name('test.report');
+    Route::get('/report/learning', [ReportController::class, 'learningReport'])->name('learning.report');
+    Route::get('/export2pdf/course', [ReportController::class, 'courseExport'])->name('course.export');
+    Route::get('/export2pdf/test', [ReportController::class, 'testExport'])->name('test.export');
+
 
     Route::get('/language/{locale}', function ($locale) {
         app()->setLocale($locale);

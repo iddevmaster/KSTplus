@@ -82,6 +82,7 @@
                     </div>
                 </div>
 
+                {{-- หลักสูตร --}}
                 <div class="bg-white rounded-4 mb-4 shadow-sm">
                     <div class="text-center my-3">
                         <div class="my-4 flex justify-between px-4">
@@ -149,6 +150,7 @@
                     </div>
                 </div>
 
+                {{-- หลักสูตรของฉัน --}}
                 <div class="bg-white rounded-4 mb-4 shadow-sm">
                     <div class=" my-3">
                         <div class="my-4 flex justify-between px-4">

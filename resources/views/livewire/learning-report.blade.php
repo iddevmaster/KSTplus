@@ -14,16 +14,11 @@
                 </tr>
             </thead>
             <tbody class="text-start">
-                @if (count($user_courses ?? []) > 0)
-                    @php
-                        $index = 1;
-                    @endphp
-                    @foreach ($user_courses as $user_course)
+                @if (count($course_progreses ?? []) > 0)
+                    @foreach ($course_progreses as $index => $course_progres)
                         @php
-                            $prog_finish = App\Models\progress::where('user_id', $user_course->user_id)
-                                ->where('course_id', $user_course->course_id)
-                                ->count();
-                            $less_all = App\Models\lesson::where('course', $user_course->course_id)->count();
+                            $prog_finish = $course_progres->learned_lesson;
+                            $less_all = App\Models\lesson::where('course', $course_progres->course_id)->count();
                             if ($less_all != 0) {
                                 $prog_avg = intval(($prog_finish * 100) / $less_all);
                             } else {
@@ -31,10 +26,10 @@
                             }
                         @endphp
                         <tr>
-                            <th scope="row">{{ $index }}</th>
-                            <td>{{ optional($user_course->getUser())->name }}</td>
+                            <th scope="row">{{ $index + 1 }}</th>
+                            <td>{{ optional($course_progres->user())->name }}</td>
                             <td data-toggle="tooltip" data-placement="top" title="adwadawdawdaw">
-                                {{ Str::limit(optional($user_course->getCourse())->title, 60) }}</td>
+                                {{ Str::limit(optional($course_progres->course())->title, 60) }}</td>
                             <td>
                                 <div class="progress" role="progressbar" aria-label="Example with label"
                                     aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
@@ -47,12 +42,9 @@
                         </div> --}}
                             </td>
                             <td>
-                                {{ $user_course->created_at ?? '' }}
+                                {{ $course_progres->last_learned_at ?? '' }}
                             </td>
                         </tr>
-                        @php
-                            $index++;
-                        @endphp
                     @endforeach
                 @else
                     <tr>

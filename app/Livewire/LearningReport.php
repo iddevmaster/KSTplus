@@ -12,18 +12,18 @@ use Livewire\Component;
 class LearningReport extends Component
 {
     public $user_courses;
+    public $course_progreses;
     public $formData = [];
     public function mount()
     {
-        $users = User::orderBy('created_at', 'desc')->get(['id']);
+        // $users = User::orderBy('created_at', 'desc')->get(['id']);
 
-        $query = progress::select(
+        $this->course_progreses = progress::select(
             'user_id',
             'course_id',
             DB::raw('COUNT(*) as learned_lesson'),
-        )->groupBy(['user_id', 'course_id'])->get();
-
-        dd($query);
+            DB::raw('MAX(created_at) as last_learned_at')
+        )->groupBy(['user_id', 'course_id'])->orderBy(DB::raw('MAX(created_at) as last_learned_at'), 'desc')->get();
     }
 
     public function render()

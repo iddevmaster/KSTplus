@@ -27,7 +27,7 @@ class LearningReport extends Component
             'course_id',
             DB::raw('COUNT(*) as learned_lesson'),
             DB::raw('MAX(created_at) as last_learned_at')
-        )->whereHas('user')->groupBy(['user_id', 'course_id'])->orderBy('last_learned_at', 'desc')->get();
+        )->whereHas('user')->whereHas('course')->groupBy(['user_id', 'course_id'])->orderBy('last_learned_at', 'desc')->get();
     }
 
     public function filterLearning() {
@@ -47,7 +47,7 @@ class LearningReport extends Component
             $query->where('course_id', $this->filter_course);
         }
 
-        $this->course_progreses = $query->groupBy(['user_id', 'course_id'])->orderBy('last_learned_at', 'desc')->get();
+        $this->course_progreses = $query->whereHas('user')->whereHas('course')->groupBy(['user_id', 'course_id'])->orderBy('last_learned_at', 'desc')->get();
     }
 
     // public function updated($propertyName)

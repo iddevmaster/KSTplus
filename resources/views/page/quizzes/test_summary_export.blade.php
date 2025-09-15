@@ -33,8 +33,8 @@
                             @foreach ($quests as $qindex => $quest)
                                 <tr>
                                     <td class="text-center">{{ $qindex + 1 }}</td>
-                                    <td>{!! $quest->title !!}</td>
-                                    <td>
+                                    <td class="text-sm">{!! $quest->title !!}</td>
+                                    <td class="text-sm">
                                         @if ($quest->type)
                                             (C)
                                             @foreach ($quest->answer as $aindex => $choice)

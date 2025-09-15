@@ -33,7 +33,7 @@
                             @foreach ($quests as $qindex => $quest)
                                 <tr>
                                     <td class="text-center">{{ $qindex + 1 }}</td>
-                                    <td class="text-sm">{!! $quest->title !!}</td>
+                                    <td class="text-sm font-normal">{!! $quest->title !!}</td>
                                     <td class="text-sm">
                                         @if ($quest->type)
                                             (C)

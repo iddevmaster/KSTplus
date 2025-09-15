@@ -23,8 +23,12 @@
     @else
         <div class="flex flex-wrap gap-2 px-2 mb-4">
             <p><b>Answer:</b></p>
-            <input type="text" id="choice1" wire:model="answers.{{ $question->id }}" maxlength="1000" name="choice1" class="block w-100 text-sm text-gray-900 bg-transparent border-t-0 border-s-0 border-e-0 border-b-2 border-gray-400 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder="Input text" />
+            <div class="flex w-full">
+                <input type="text" id="answerbox{{ $question->id }}" wire:model="answers.{{ $question->id }}" maxlength="1000" name="choice1"
+                    class="answer-box block w-100 text-sm text-gray-900 bg-transparent border-t-0 border-s-0 border-e-0 border-b-2 border-gray-400 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder="Input text" />
+                <button type="button" id="answermicBtn" question-id="{{ $question->id }}" class="btn btn-outline-primary">🎤 พูด</button>
+            </div>
         </div>
     @endif
 

@@ -28,6 +28,9 @@
                                 <th scope="col" class="px-6 py-3">
                                     {{ __('messages.date') }}
                                 </th>
+                                <th scope="col" class="px-6 py-3">
+                                    ดำเนินการ
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,6 +67,11 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         {{ $startDate->format('d-m-Y') }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <a href="{{ route('test.history.show', ['testid' => $test->id]) }}" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center">
+                                            <i class="bi bi-list"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -145,3 +153,11 @@ $(document).ready(function() {
     });
 });
 </script>
+<style>
+    @media print {
+        th:last-child,
+        td:last-child {
+            display: none;
+        }
+    }
+</style>

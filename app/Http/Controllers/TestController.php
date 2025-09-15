@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\Models\quiz;
 use Illuminate\Support\Facades\Log;
 use App\Models\Activitylog;
+use App\Models\User;
 
 class TestController extends Controller
 {
@@ -95,5 +96,45 @@ class TestController extends Controller
         session()->forget('testResults');
         return redirect()->route('test.summary');
         // return view("page.test_summary", compact("scores", "quests", "totalScore", "timeUsege"));
+    }
+
+    public function testHistory($testid) {
+        $test = Test::find($testid);
+        $tester_name = User::find($test->tester)->name ?? 'N/A';
+        $startDate = Carbon::createFromFormat('Y-m-d H:i:s', $test->start);
+        $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $test->end);
+        $timeUsege = $startDate->diff($endDate);  // $diff->format('%d days, %h hours, %i minutes');
+
+
+        $scores = $test->score ?? 0;
+        $totalScore = $test->totalScore ?? 0;
+        $quizId = $test->quiz;
+        $answers = $test->answers ?? [];
+        $quests = question::whereIn('id', array_keys($answers))->get();
+        //  clear session -> session()->forget('scores');
+        $quiz = quiz::find($quizId);
+
+        $cid = null;
+
+        return view("page.quizzes.test_summary", compact('scores', 'quests', 'totalScore', 'timeUsege', 'quiz', 'answers', 'cid', 'testid', 'tester_name', 'startDate'));
+    }
+
+    public function testHistoryExport($testid) {
+        $test = Test::find($testid);
+        $tester_name = User::find($test->tester)->name ?? 'N/A';
+        $startDate = Carbon::createFromFormat('Y-m-d H:i:s', $test->start);
+        $endDate = Carbon::createFromFormat('Y-m-d H:i:s', $test->end);
+        $timeUsege = $startDate->diff($endDate);  // $diff->format('%d days, %h hours, %i minutes');
+
+
+        $scores = $test->score ?? 0;
+        $totalScore = $test->totalScore ?? 0;
+        $quizId = $test->quiz;
+        $answers = $test->answers ?? [];
+        $quests = question::whereIn('id', array_keys($answers))->get();
+        //  clear session -> session()->forget('scores');
+        $quiz = quiz::find($quizId);
+
+        return view("page.quizzes.test_summary_export", compact('scores', 'quests', 'totalScore', 'timeUsege', 'quiz', 'answers', 'tester_name', 'startDate'));
     }
 }

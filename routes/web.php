@@ -132,6 +132,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/test/start/{cid}/{qzid}/{ques_num}', [TestController::class, 'index'])->name('test.start');
     Route::get('/test/summary', [TestController::class, 'testSummary'])->name('test.summary');
     Route::get('/test/finish', [TestController::class, 'finishTest'])->name('test.finish');
+    Route::get('/test/history/{testid}', [TestController::class, 'testHistory'])->name('test.history.show');
+    Route::get('/test/history/export/{testid}', [TestController::class, 'testHistoryExport'])->name('test.history.export');
 
     // Export file
     Route::get('/export/{type}', [HomeController::class, 'previewPDF'])->name('export.pdf');

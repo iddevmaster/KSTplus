@@ -6,6 +6,12 @@
         <div class="row justify-center">
             <div class="card p-4 pb-2 mb-4">
                 <p class="text-2xl font-bold">{{ __('messages.quiz') }} :: {{$quiz->title}}</p>
+                @if ($tester_name ?? false)
+                    <p class="text-md">ผู้ทดสอบ :: {{$tester_name}}</p>
+                @endif
+                @if ($startDate ?? false)
+                    <p class="text-md">วันที่ทดสอบ :: {{$startDate}}</p>
+                @endif
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 py-4">
                     <div class="card p-2 rounded-xl flex flex-row bg-gradient-to-br from-cyan-400 via-cyan-500 to-cyan-600 border-0 text-white shadow">
@@ -69,15 +75,28 @@
                 </div>
 
                 <div class="mt-2">
-                    <a href="{{route('course.detail', ['id' => $cid])}}">
-                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2   focus:outline-none ">
-                            {{ __('messages.back_2_course') }}
-                        </button>
-                    </a>
+                    @if ($cid)
+                        <a href="{{route('course.detail', ['id' => $cid])}}">
+                            <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2   focus:outline-none ">
+                                {{ __('messages.back_2_course') }}
+                            </button>
+                        </a>
+                    @else
+                        <a href="{{route('quiz.record', ['qid' => $quiz->id])}}">
+                            <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2   focus:outline-none ">
+                                กลับไปหน้าประวัติ
+                            </button>
+                        </a>
+                        <a href="{{route('test.history.export', ['testid' => $testid])}}">
+                            <button type="button" class="text-white bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2   focus:outline-none ">
+                                พิมพ์รายงาน
+                            </button>
+                        </a>
+                    @endif
                 </div>
             </div>
 
-            @if ($quiz->showAns)
+            @if ($quiz->showAns || is_null($cid))
                 <div class="card p-4">
                     <div class="flex justify-between flex-wrap mb-4">
                         <p class="text-2xl font-bold">{{ __('messages.answer') }}:</p>
@@ -111,10 +130,15 @@
                                     @endforeach
                                 </div>
                             @else
-                                <p class="mb-2"><b>{{ __('messages.answer') }}:</b> &nbsp;
-                                    <span class="{{ $answers[$quest->id]['status'] ? 'text-green-500' : 'text-red-500' }} bg-gray-200 px-2 py-1 rounded">{{$answers[$quest->id]['ans']}}</span>
-                                    <span class="text-green-500 bg-green-100 px-2 rounded py-1 {{$answers[$quest->id]['status'] ? 'hidden' : ''}}">{{$quest->answer[0]['answer']}}</span>
-                                </p>
+                                <div class="ps-4">
+                                    <p class="mb-2"><b>{{ __('messages.answer') }}:</b> &nbsp;
+                                        <span class="{{ $answers[$quest->id]['status'] ? 'text-green-500' : 'text-red-500' }} bg-gray-200 px-2 py-1 rounded">{{$answers[$quest->id]['ans']}}</span>
+                                        {{-- <span class="text-green-500 bg-green-100 px-2 rounded py-1 {{$answers[$quest->id]['status'] ? 'hidden' : ''}}">{{$quest->answer[0]['answer']}}</span> --}}
+                                    </p>
+                                    <p class="mb-2"><b>เฉลย:</b> &nbsp;
+                                        <span class="text-green-500 bg-green-100 px-2 rounded py-1 {{$answers[$quest->id]['status'] ? 'hidden' : ''}}">{{$quest->answer[0]['answer']}}</span>
+                                    </p>
+                                </div>
                             @endif
                         </div>
                     @endforeach

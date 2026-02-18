@@ -80,7 +80,7 @@
                 <div class="item">
                     <a href="https://idinspection.com/" target="_BLANK">
                         <div>
-                            <img src="/img/carouselphoto/logoins.jpg" alt="">
+                            <img src="/img/carouselphoto/logoins.jpg" style="max-height: 200px; object-fit:contain;" alt="">
                         </div>
                     </a>
                 </div>
